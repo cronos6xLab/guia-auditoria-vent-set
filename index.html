@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* ---- Raycast tokens ---- */
   --color-void-black:#040506;
   --color-ink:#07080a;
   --color-obsidian:#111214;
@@ -66,9 +65,7 @@ body{
   overflow-x:hidden;
 }
 
-/* ============================================================
-   iOS: evitar zoom y desbordes en campos de texto
-   ============================================================ */
+/* iOS */
 input,select,textarea,button{
   font-family:inherit;
   font-size:16px;
@@ -78,398 +75,102 @@ input[type="number"]{-moz-appearance:textfield;}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
 
-/* --- FIX: input[type=date] se desbordaba en iOS --- */
 input[type="date"]{
-  -webkit-appearance:none;
-  -moz-appearance:none;
-  appearance:none;
-  display:block;
-  width:100%;
-  max-width:100%;
-  min-width:0;
-  min-height:48px;
-  padding:12px 14px;
-  line-height:1.35;
-  text-align:left;
-  font-family:var(--font-inter);
-  font-size:16px;
-  color-scheme:dark;
-  background-clip:padding-box;
+  -webkit-appearance:none;-moz-appearance:none;appearance:none;
+  display:block;width:100%;max-width:100%;min-width:0;min-height:48px;
+  padding:12px 14px;line-height:1.35;text-align:left;
+  font-size:16px;color-scheme:dark;background-clip:padding-box;
 }
-input[type="date"]::-webkit-date-and-time-value{
-  text-align:left;
-  margin:0;
-  min-height:1.35em;
-}
-input[type="date"]::-webkit-datetime-edit{
-  padding:0;
-  min-width:0;
-  overflow:hidden;
-}
-input[type="date"]::-webkit-calendar-picker-indicator{
-  filter:invert(1);
-  opacity:.42;
-  cursor:pointer;
-  margin-left:6px;
-  padding:0;
-}
+input[type="date"]::-webkit-date-and-time-value{text-align:left;margin:0;min-height:1.35em;}
+input[type="date"]::-webkit-datetime-edit{padding:0;min-width:0;overflow:hidden;}
+input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.42;cursor:pointer;margin-left:6px;padding:0;}
 
 /* ============ Marquee ============ */
-.marquee{
-  background:var(--color-void-black);
-  border-bottom:1px solid var(--border-hairline);
-  overflow:hidden;
-  white-space:nowrap;
-  padding:9px 0;
-}
-.marquee__track{
-  display:inline-block;
-  animation:slide 42s linear infinite;
-  font-family:var(--font-geistmono);
-  font-weight:400;
-  font-size:12px;
-  letter-spacing:0.017em;
-  text-transform:uppercase;
-  color:var(--color-smoke);
-}
+.marquee{background:var(--color-void-black);border-bottom:1px solid var(--border-hairline);overflow:hidden;white-space:nowrap;padding:9px 0;}
+.marquee__track{display:inline-block;animation:slide 42s linear infinite;font-family:var(--font-geistmono);font-weight:400;font-size:12px;letter-spacing:0.017em;text-transform:uppercase;color:var(--color-smoke);}
 @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.marquee__track{animation:none}}
 
-/* ============ Nav flotante glass ============ */
-.nav{
-  position:sticky;top:0;z-index:50;
-  padding:12px 16px 0;
-  background:linear-gradient(to bottom,var(--color-void-black) 65%,transparent);
-}
-.nav__inner{
-  max-width:var(--page-max);
-  margin:0 auto;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-  padding:8px 14px;
-  border:1px solid var(--border-hairline);
-  border-radius:var(--radius-btn);
-  background:rgba(4,5,6,0.62);
-  backdrop-filter:blur(48px);
-  -webkit-backdrop-filter:blur(48px);
-}
-.logo{
-  display:flex;align-items:center;gap:8px;
-  font-weight:500;font-size:13px;
-  color:var(--color-pure-white);
-  flex:0 0 auto;
-}
-.logo__diamond{
-  width:14px;height:14px;
-  background:var(--color-coral-pulse);
-  transform:rotate(45deg);
-  border-radius:3px;
-  box-shadow:0 0 12px rgba(255,99,99,0.45);
-}
-.nav__step{
-  font-family:var(--font-geistmono);
-  font-size:11px;
-  font-weight:400;
-  letter-spacing:0.05em;
-  text-transform:uppercase;
-  color:var(--color-smoke);
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  max-width:100%;
-}
+/* ============ Nav ============ */
+.nav{position:sticky;top:0;z-index:50;padding:12px 16px 0;background:linear-gradient(to bottom,var(--color-void-black) 65%,transparent);}
+.nav__inner{max-width:var(--page-max);margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:8px 14px;border:1px solid var(--border-hairline);border-radius:var(--radius-btn);background:rgba(4,5,6,0.62);backdrop-filter:blur(48px);-webkit-backdrop-filter:blur(48px);}
+.logo{display:flex;align-items:center;gap:8px;font-weight:500;font-size:13px;color:var(--color-pure-white);flex:0 0 auto;}
+.logo__diamond{width:14px;height:14px;background:var(--color-coral-pulse);transform:rotate(45deg);border-radius:3px;box-shadow:0 0 12px rgba(255,99,99,0.45);}
+.nav__step{font-family:var(--font-geistmono);font-size:11px;font-weight:400;letter-spacing:0.05em;text-transform:uppercase;color:var(--color-smoke);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
 .nav__step b{color:var(--color-mist);font-weight:500;}
-.nav__live{
-  margin-left:auto;
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  font-family:var(--font-geistmono);
-  font-size:11px;
-  letter-spacing:0.05em;
-  text-transform:uppercase;
-  color:var(--color-smoke);
-  white-space:nowrap;
-}
-.nav__live span{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-}
-.nav__live span::before{
-  content:"";
-  width:5px;height:5px;
-  border-radius:var(--radius-circle);
-  background:currentColor;
-}
+.nav__actions{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.nav__live{display:flex;gap:8px;flex-wrap:wrap;font-family:var(--font-geistmono);font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:var(--color-smoke);white-space:nowrap;}
+.nav__live span{display:inline-flex;align-items:center;gap:5px;}
+.nav__live span::before{content:"";width:5px;height:5px;border-radius:var(--radius-circle);background:currentColor;}
 .nav__live .is-ok{color:var(--color-success-green);}
 .nav__live .is-nok{color:var(--color-coral-pulse);}
+.nav-btn{
+  border:1px solid var(--border-hairline);
+  background:transparent;
+  color:var(--color-ash);
+  border-radius:var(--radius-badge);
+  padding:6px 10px;
+  font-family:var(--font-geistmono);
+  font-size:11px;font-weight:500;
+  letter-spacing:0.05em;text-transform:uppercase;
+  cursor:pointer;
+  transition:background .15s ease,color .15s ease,border-color .15s ease;
+  white-space:nowrap;
+}
+.nav-btn:hover{background:var(--color-obsidian);color:var(--color-mist);border-color:var(--color-slate);}
 
 /* ============ Hero ============ */
-.hero{
-  position:relative;
-  overflow:hidden;
-  padding:56px 16px 72px;
-  background:var(--color-void-black);
-}
-.hero__wash{
-  position:absolute;
-  inset:-20% -10% auto -10%;
-  height:130%;
-  background:
-    radial-gradient(60% 55% at 50% 26%, rgba(4,63,150,0.70) 0%, rgba(6,18,37,0.25) 55%, transparent 78%),
-    radial-gradient(38% 38% at 74% 18%, rgba(255,99,99,0.30) 0%, transparent 70%),
-    radial-gradient(45% 45% at 22% 62%, rgba(20,60,163,0.35) 0%, transparent 72%);
-  filter:blur(38px);
-  pointer-events:none;
-  z-index:0;
-}
-.hero__bar{
-  position:absolute;
-  background:var(--color-coral-pulse);
-  filter:blur(40px);
-  opacity:.5;
-  pointer-events:none;
-  z-index:0;
-}
+.hero{position:relative;overflow:hidden;padding:56px 16px 72px;background:var(--color-void-black);}
+.hero__wash{position:absolute;inset:-20% -10% auto -10%;height:130%;background:radial-gradient(60% 55% at 50% 26%, rgba(4,63,150,0.70) 0%, rgba(6,18,37,0.25) 55%, transparent 78%),radial-gradient(38% 38% at 74% 18%, rgba(255,99,99,0.30) 0%, transparent 70%),radial-gradient(45% 45% at 22% 62%, rgba(20,60,163,0.35) 0%, transparent 72%);filter:blur(38px);pointer-events:none;z-index:0;}
+.hero__bar{position:absolute;background:var(--color-coral-pulse);filter:blur(40px);opacity:.5;pointer-events:none;z-index:0;}
 .hero__bar--a{width:120%;height:52px;top:34%;left:-10%;transform:rotate(-14deg);}
 .hero__bar--b{width:80%;height:32px;top:20%;right:-8%;transform:rotate(9deg);opacity:.32;}
 .hero__inner{position:relative;z-index:2;max-width:var(--page-max);margin:0 auto;}
-.eyebrow{
-  margin:0 0 20px;
-  font-family:var(--font-geistmono);
-  font-weight:400;
-  font-size:11px;
-  letter-spacing:0.073em;
-  text-transform:uppercase;
-  color:var(--color-ash);
-}
-.display{
-  font-weight:400;
-  font-size:clamp(34px,7.6vw,64px);
-  line-height:1.1;
-  letter-spacing:0;
-  margin:0 0 20px;
-  max-width:20ch;
-  color:var(--color-pure-white);
-}
-.tagline{
-  font-weight:400;
-  font-size:16px;
-  line-height:1.5;
-  color:var(--color-ash);
-  max-width:58ch;
-  margin:0 0 28px;
-}
-.warn{
-  display:flex;
-  gap:12px;
-  align-items:flex-start;
-  max-width:70ch;
-  background:var(--color-ember-hush);
-  border:1px solid var(--border-hairline);
-  border-radius:var(--radius-card);
-  padding:16px 20px;
-  font-size:14px;
-  line-height:1.5;
-  color:var(--color-mist);
-  box-shadow:var(--shadow-key);
-}
-.warn strong{
-  display:block;
-  font-family:var(--font-geistmono);
-  font-weight:500;
-  font-size:11px;
-  letter-spacing:0.073em;
-  text-transform:uppercase;
-  color:var(--color-coral-pulse);
-  margin-bottom:4px;
-}
-.hero__meta{
-  margin-top:28px;
-  font-family:var(--font-geistmono);
-  font-size:12px;
-  letter-spacing:0.017em;
-  color:var(--color-smoke);
-}
+.eyebrow{margin:0 0 20px;font-family:var(--font-geistmono);font-weight:400;font-size:11px;letter-spacing:0.073em;text-transform:uppercase;color:var(--color-ash);}
+.display{font-weight:400;font-size:clamp(34px,7.6vw,64px);line-height:1.1;margin:0 0 20px;max-width:20ch;color:var(--color-pure-white);}
+.tagline{font-weight:400;font-size:16px;line-height:1.5;color:var(--color-ash);max-width:58ch;margin:0 0 28px;}
+.warn{display:flex;gap:12px;align-items:flex-start;max-width:70ch;background:var(--color-ember-hush);border:1px solid var(--border-hairline);border-radius:var(--radius-card);padding:16px 20px;font-size:14px;line-height:1.5;color:var(--color-mist);box-shadow:var(--shadow-key);}
+.warn strong{display:block;font-family:var(--font-geistmono);font-weight:500;font-size:11px;letter-spacing:0.073em;text-transform:uppercase;color:var(--color-coral-pulse);margin-bottom:4px;}
+.hero__meta{margin-top:28px;font-family:var(--font-geistmono);font-size:12px;letter-spacing:0.017em;color:var(--color-smoke);}
 
-/* ============================================================
-   STEP (hoja)
-   ============================================================ */
-.step{
-  padding:40px 16px 56px;
-  background:var(--color-void-black);
-  border-top:1px solid var(--border-hairline);
-  animation:sheetIn .28s ease both;
-}
+/* ============ Steps ============ */
+.step{padding:40px 16px 56px;background:var(--color-void-black);border-top:1px solid var(--border-hairline);animation:sheetIn .28s ease both;}
 .step[hidden]{display:none;}
-@keyframes sheetIn{
-  from{opacity:0;transform:translateY(10px);}
-  to{opacity:1;transform:translateY(0);}
-}
-@media (prefers-reduced-motion:reduce){
-  .step{animation:none;}
-}
+@keyframes sheetIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+@media (prefers-reduced-motion:reduce){.step{animation:none;}}
 .wrap{max-width:var(--page-max);margin:0 auto;width:100%;min-width:0;}
-
-.step-head{
-  display:flex;
-  align-items:center;
-  gap:16px;
-  margin-bottom:28px;
-  flex-wrap:wrap;
-}
-.sec-num{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-width:44px;height:44px;
-  padding:0 12px;
-  border:1px solid var(--border-hairline);
-  border-radius:var(--radius-badge);
-  background:var(--color-graphite);
-  font-family:var(--font-geistmono);
-  font-weight:500;
-  font-size:13px;
-  letter-spacing:0.017em;
-  color:var(--color-mist);
-  flex:0 0 auto;
-}
-.sec-title{
-  margin:0;
-  font-weight:400;
-  font-size:clamp(24px,3.6vw,32px);
-  line-height:1.15;
-  letter-spacing:0;
-  color:var(--color-pure-white);
-  min-width:0;
-}
+.step-head{display:flex;align-items:center;gap:16px;margin-bottom:28px;flex-wrap:wrap;}
+.sec-num{display:inline-flex;align-items:center;justify-content:center;min-width:44px;height:44px;padding:0 12px;border:1px solid var(--border-hairline);border-radius:var(--radius-badge);background:var(--color-graphite);font-family:var(--font-geistmono);font-weight:500;font-size:13px;letter-spacing:0.017em;color:var(--color-mist);flex:0 0 auto;}
+.sec-title{margin:0;font-weight:400;font-size:clamp(24px,3.6vw,32px);line-height:1.15;color:var(--color-pure-white);min-width:0;}
 
 /* ============ Card ============ */
-.card{
-  background:var(--color-ink);
-  border-radius:var(--radius-card);
-  padding:8px 24px;
-  box-shadow:var(--shadow-key);
-  width:100%;
-  min-width:0;
-}
+.card{background:var(--color-ink);border-radius:var(--radius-card);padding:8px 24px;box-shadow:var(--shadow-key);width:100%;min-width:0;}
 .card--lg{border-radius:var(--radius-card-lg);}
 
-/* ============ Ítems ============ */
-.item{
-  display:flex;
-  gap:24px;
-  flex-wrap:wrap;
-  align-items:flex-start;
-  justify-content:space-between;
-  padding:24px 0;
-  border-bottom:1px solid rgba(255,255,255,0.06);
-}
+/* ============ Items ============ */
+.item{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;padding:24px 0;border-bottom:1px solid rgba(255,255,255,0.06);}
 .item:last-child{border-bottom:none;}
 .item-txt{flex:1 1 280px;min-width:0;}
-.item-title{
-  margin:0 0 8px;
-  font-weight:500;
-  font-size:16px;
-  line-height:1.35;
-  color:var(--color-pure-white);
-}
-.item-detail{
-  margin:0;
-  font-weight:400;
-  font-size:14px;
-  line-height:1.6;
-  letter-spacing:0.008em;
-  color:var(--color-smoke);
-  max-width:74ch;
-}
+.item-title{margin:0 0 8px;font-weight:500;font-size:16px;line-height:1.35;color:var(--color-pure-white);}
+.item-detail{margin:0;font-weight:400;font-size:14px;line-height:1.6;letter-spacing:0.008em;color:var(--color-smoke);max-width:74ch;}
 .pills{display:flex;gap:8px;flex:0 0 auto;}
 
-.pill{
-  position:relative;
-  display:inline-flex;
-  border:1px solid var(--border-hairline);
-  border-radius:var(--radius-btn);
-  background:var(--color-obsidian);
-  overflow:hidden;
-  cursor:pointer;
-  transition:background .15s ease,border-color .15s ease,transform .15s ease;
-}
+.pill{position:relative;display:inline-flex;border:1px solid var(--border-hairline);border-radius:var(--radius-btn);background:var(--color-obsidian);overflow:hidden;cursor:pointer;transition:background .15s ease,border-color .15s ease,transform .15s ease;}
 .pill:hover{border-color:var(--color-slate);}
 .pill:active{transform:scale(.97);}
-.pill input{
-  position:absolute;inset:0;
-  width:100%;height:100%;
-  opacity:0;margin:0;cursor:pointer;
-}
-.pill span{
-  display:block;
-  padding:9px 18px;
-  font-weight:500;
-  font-size:13px;
-  line-height:1;
-  letter-spacing:0.014em;
-  text-transform:uppercase;
-  color:var(--color-ash);
-  pointer-events:none;
-  transition:color .15s ease,background .15s ease;
-}
+.pill input{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:pointer;}
+.pill span{display:block;padding:9px 18px;font-weight:500;font-size:13px;line-height:1;letter-spacing:0.014em;text-transform:uppercase;color:var(--color-ash);pointer-events:none;transition:color .15s ease,background .15s ease;}
 .pill--ok input:checked + span{background:var(--color-mist);color:var(--color-iron);}
 .pill--nok input:checked + span{background:var(--color-coral-pulse);color:var(--color-void-black);}
 .pill input:focus-visible + span{outline:1px solid var(--color-coral-pulse);outline-offset:-3px;}
 
-.tag{
-  display:inline-block;
-  vertical-align:middle;
-  border-radius:var(--radius-badge);
-  padding:2px 8px;
-  font-family:var(--font-geistmono);
-  font-size:10px;
-  font-weight:500;
-  letter-spacing:0.05em;
-  text-transform:uppercase;
-  margin-left:8px;
-}
+.tag{display:inline-block;vertical-align:middle;border-radius:var(--radius-badge);padding:2px 8px;font-family:var(--font-geistmono);font-size:10px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;margin-left:8px;}
 .tag--crit{background:var(--color-ember-hush);color:var(--color-coral-pulse);border:1px solid rgba(255,99,99,0.25);}
 .tag--auto{background:var(--color-graphite);color:var(--color-ash);}
 
-/* ============ Filas auto ============ */
-.item--auto{
-  background:rgba(255,255,255,0.02);
-  margin:0 -24px;
-  padding-left:24px;
-  padding-right:24px;
-}
-.auto-nota{
-  margin:8px 0 0;
-  font-family:var(--font-geistmono);
-  font-size:12px;
-  line-height:1.6;
-  letter-spacing:0.017em;
-  color:var(--color-smoke);
-  max-width:74ch;
-}
-.auto-res{
-  flex:0 0 auto;
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  border:1px solid var(--border-hairline);
-  border-radius:var(--radius-badge);
-  padding:9px 14px;
-  font-family:var(--font-geistmono);
-  font-weight:500;
-  font-size:12px;
-  line-height:1;
-  letter-spacing:0.017em;
-  text-transform:uppercase;
-  background:var(--color-obsidian);
-  color:var(--color-smoke);
-  white-space:nowrap;
-}
+.item--auto{background:rgba(255,255,255,0.02);margin:0 -24px;padding-left:24px;padding-right:24px;}
+.auto-nota{margin:8px 0 0;font-family:var(--font-geistmono);font-size:12px;line-height:1.6;letter-spacing:0.017em;color:var(--color-smoke);max-width:74ch;}
+.auto-res{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border-hairline);border-radius:var(--radius-badge);padding:9px 14px;font-family:var(--font-geistmono);font-weight:500;font-size:12px;line-height:1;letter-spacing:0.017em;text-transform:uppercase;background:var(--color-obsidian);color:var(--color-smoke);white-space:nowrap;}
 .auto-res::before{content:"";width:8px;height:8px;border-radius:var(--radius-circle);background:var(--color-smoke);}
 .auto-res[data-estado="OK"]{color:var(--color-success-green);border-color:rgba(89,212,153,0.3);background:rgba(89,212,153,0.08);}
 .auto-res[data-estado="OK"]::before{background:var(--color-success-green);}
@@ -477,279 +178,191 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 .auto-res[data-estado="NOK"]::before{background:var(--color-coral-pulse);}
 
 /* ============ Widgets ============ */
-.widget{
-  margin:24px 0;
-  background:var(--color-obsidian);
-  border:1px solid var(--border-hairline);
-  border-radius:var(--radius-card);
-  padding:24px;
-  box-shadow:var(--shadow-key);
-}
-.widget-title{
-  margin:0 0 16px;
-  font-family:var(--font-geistmono);
-  font-weight:500;
-  font-size:11px;
-  letter-spacing:0.073em;
-  text-transform:uppercase;
-  color:var(--color-ash);
-}
-.widget-hint{
-  margin:16px 0 0;
-  font-family:var(--font-geistmono);
-  font-size:12px;
-  line-height:1.6;
-  letter-spacing:0.017em;
-  color:var(--color-smoke);
-}
+.widget{margin:24px 0 0;background:var(--color-obsidian);border:1px solid var(--border-hairline);border-radius:var(--radius-card);padding:24px;box-shadow:var(--shadow-key);}
+.widget-title{margin:0 0 16px;font-family:var(--font-geistmono);font-weight:500;font-size:11px;letter-spacing:0.073em;text-transform:uppercase;color:var(--color-ash);}
+.widget-hint{margin:16px 0 0;font-family:var(--font-geistmono);font-size:12px;line-height:1.6;letter-spacing:0.017em;color:var(--color-smoke);}
 
-/* ============================================================
-   Grids — min() evita desbordes en pantallas angostas
-   ============================================================ */
-.grid-4{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(160px,100%),1fr));
-  gap:16px;
-}
-.grid-2{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));
-  gap:16px;
-}
-.grid-4 > *,
-.grid-2 > *{min-width:0;}
+.grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(160px,100%),1fr));gap:16px;}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:16px;}
+.grid-4 > *,.grid-2 > *{min-width:0;}
 
-/* ============ Campos ============ */
-.field{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  min-width:0;
-  width:100%;
-}
-.field-label{
-  font-weight:500;
-  font-size:11px;
-  letter-spacing:0.073em;
-  text-transform:uppercase;
-  color:var(--color-ash);
-  font-family:var(--font-geistmono);
-  word-break:break-word;
-}
+/* ============ Fields ============ */
+.field{display:flex;flex-direction:column;gap:8px;min-width:0;width:100%;}
+.field-label{font-weight:500;font-size:11px;letter-spacing:0.073em;text-transform:uppercase;color:var(--color-ash);font-family:var(--font-geistmono);word-break:break-word;}
+.field-label .req{color:var(--color-coral-pulse);margin-left:4px;}
 .field input,
-.field textarea{
-  display:block;
-  width:100%;
-  max-width:100%;
-  min-width:0;
-  border:1px solid var(--border-hairline);
-  border-radius:var(--radius-input);
-  background:rgba(255,255,255,0.05);
-  padding:12px 14px;
-  font-size:16px;
-  font-weight:400;
-  line-height:1.35;
-  letter-spacing:0;
-  color:var(--color-pure-white);
-  outline:none;
-  transition:border-color .15s ease,background .15s ease;
-  box-shadow:rgba(255,255,255,0.04) 0px 1px 0px 0px inset;
-}
+.field textarea{display:block;width:100%;max-width:100%;min-width:0;border:1px solid var(--border-hairline);border-radius:var(--radius-input);background:rgba(255,255,255,0.05);padding:12px 14px;font-size:16px;font-weight:400;line-height:1.35;color:var(--color-pure-white);outline:none;transition:border-color .15s ease,background .15s ease,box-shadow .15s ease;box-shadow:rgba(255,255,255,0.04) 0px 1px 0px 0px inset;}
 .field textarea{min-height:104px;resize:vertical;}
 .field input:focus,
-.field textarea:focus{
-  border-color:var(--color-slate);
-  background:rgba(255,255,255,0.07);
-}
-.field input[readonly]{
-  color:var(--color-ash);
-  background:rgba(255,255,255,0.02);
-  cursor:default;
-}
+.field textarea:focus{border-color:var(--color-slate);background:rgba(255,255,255,0.07);}
+.field input[readonly]{color:var(--color-ash);background:rgba(255,255,255,0.02);cursor:default;}
 .field input::placeholder,
 .field textarea::placeholder{color:var(--color-smoke);}
+.field input.has-error,
+.field textarea.has-error{border-color:var(--color-coral-pulse);box-shadow:0 0 0 3px rgba(255,99,99,0.15);}
+.field-error{margin:0;font-family:var(--font-geistmono);font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:var(--color-coral-pulse);display:none;}
+.field input.has-error ~ .field-error{display:block;}
+
+/* ============ Photo widget ============ */
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px;margin-bottom:14px;}
+.photo-grid:empty{display:none;}
+.photo-thumb{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;border:1px solid var(--border-hairline);background:var(--color-void-black);}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.photo-thumb button{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;border:1px solid var(--border-hairline);background:rgba(4,5,6,0.82);color:#fff;cursor:pointer;display:grid;place-items:center;font-size:14px;padding:0;line-height:1;transition:background .15s ease;}
+.photo-thumb button:hover{background:var(--color-coral-pulse);border-color:var(--color-coral-pulse);}
+.photo-thumb__name{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent);padding:14px 6px 4px;font-family:var(--font-geistmono);font-size:9px;letter-spacing:0.05em;color:var(--color-ash);text-overflow:ellipsis;overflow:hidden;white-space:nowrap;}
+.photo-add{display:inline-flex;align-items:center;gap:8px;border:1px dashed var(--border-hairline);border-radius:var(--radius-input);padding:12px 18px;cursor:pointer;background:rgba(255,255,255,0.02);transition:border-color .15s ease,background .15s ease;width:100%;justify-content:center;}
+.photo-add:hover{border-color:var(--color-coral-pulse);background:rgba(255,99,99,0.04);}
+.photo-add input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;}
+.photo-add span{font-family:var(--font-geistmono);font-size:12px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;color:var(--color-ash);}
+.photo-add:hover span{color:var(--color-mist);}
+.photo-add svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.6;color:var(--color-ash);}
+.photo-add:hover svg{color:var(--color-coral-pulse);}
+
+/* ============ Signature field ============ */
+.signature-field{display:flex;flex-direction:column;gap:10px;min-width:0;}
+.signature-row{display:flex;align-items:center;gap:10px;min-width:0;}
+.signature-preview{
+  position:relative;
+  flex:1 1 auto;
+  min-width:0;
+  height:78px;
+  border:1px solid var(--border-hairline);
+  border-radius:var(--radius-input);
+  background:rgba(255,255,255,0.04);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  cursor:pointer;
+  transition:border-color .15s ease,background .15s ease;
+}
+.signature-preview:hover{border-color:var(--color-coral-pulse);background:rgba(255,99,99,0.04);}
+.signature-preview img{max-width:100%;max-height:100%;display:block;background:#fff;border-radius:6px;}
+.signature-preview__empty{font-family:var(--font-geistmono);font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:var(--color-smoke);text-align:center;padding:0 12px;line-height:1.4;}
+.signature-preview__empty b{display:block;color:var(--color-ash);font-weight:500;margin-bottom:2px;}
+.signature-clear{
+  border:1px solid var(--border-hairline);
+  background:transparent;
+  color:var(--color-smoke);
+  width:32px;height:32px;
+  border-radius:50%;
+  cursor:pointer;
+  display:grid;place-items:center;
+  font-size:16px;line-height:1;padding:0;
+  flex:0 0 auto;
+  transition:color .15s ease,border-color .15s ease,background .15s ease;
+}
+.signature-clear:hover{color:var(--color-coral-pulse);border-color:var(--color-coral-pulse);background:var(--color-ember-hush);}
+.signature-clear[hidden]{display:none;}
 
 /* ============ Resultado ============ */
-.verdict-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
-  gap:16px;
-  margin-top:8px;
-}
-.verdict-card{
-  background:var(--color-ink);
-  border:1px solid var(--border-hairline);
-  border-radius:var(--radius-card);
-  padding:24px;
-  opacity:.42;
-  transition:opacity .2s ease,background .2s ease,border-color .2s ease;
-  box-shadow:var(--shadow-key);
-}
+.verdict-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:16px;margin-top:8px;}
+.verdict-card{background:var(--color-ink);border:1px solid var(--border-hairline);border-radius:var(--radius-card);padding:24px;opacity:.42;transition:opacity .2s ease,background .2s ease,border-color .2s ease;box-shadow:var(--shadow-key);}
 .verdict-card.is-active{opacity:1;}
 .verdict-card[data-clave="APROBADO"].is-active{background:rgba(89,212,153,0.08);border-color:rgba(89,212,153,0.35);}
 .verdict-card[data-clave="CON OBSERVACIONES"].is-active{background:rgba(86,194,255,0.06);border-color:rgba(86,194,255,0.3);}
 .verdict-card[data-clave="REPROBADO"].is-active{background:var(--color-ember-hush);border-color:rgba(255,99,99,0.4);}
-.verdict-name{
-  margin:0 0 8px;
-  font-weight:500;
-  font-size:20px;
-  line-height:1.2;
-  letter-spacing:0.2px;
-  color:var(--color-pure-white);
-}
+.verdict-name{margin:0 0 8px;font-weight:500;font-size:20px;line-height:1.2;letter-spacing:0.2px;color:var(--color-pure-white);}
 .verdict-card[data-clave="APROBADO"].is-active .verdict-name{color:var(--color-success-green);}
 .verdict-card[data-clave="CON OBSERVACIONES"].is-active .verdict-name{color:var(--color-info-blue);}
 .verdict-card[data-clave="REPROBADO"].is-active .verdict-name{color:var(--color-coral-pulse);}
 .verdict-desc{margin:0;font-size:14px;font-weight:400;line-height:1.5;color:var(--color-smoke);}
 
-/* ============ Firmas ============ */
-.sign-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
-  gap:16px;
-}
-
-/* ============ Footer meta ============ */
-.footer-meta{
-  text-align:center;
-  font-family:var(--font-geistmono);
-  font-size:12px;
-  letter-spacing:0.017em;
-  color:var(--color-smoke);
-  padding:24px 16px 32px;
-  border-top:1px solid var(--border-hairline);
-}
-
-/* ============================================================
-   DOCK — navegación entre hojas
-   ============================================================ */
-.dock{
-  position:fixed;
-  left:0;right:0;bottom:0;
-  z-index:60;
-  background:rgba(4,5,6,0.9);
-  backdrop-filter:blur(48px);
-  -webkit-backdrop-filter:blur(48px);
-  border-top:1px solid var(--border-hairline);
-  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
-}
-.dock__inner{
-  max-width:var(--page-max);
-  margin:0 auto;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-.dock__center{
-  flex:1 1 180px;
-  min-width:0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-}
-.dock__label{
-  font-family:var(--font-geistmono);
-  font-size:11px;
-  font-weight:400;
-  letter-spacing:0.05em;
-  text-transform:uppercase;
-  color:var(--color-smoke);
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  max-width:100%;
-}
-.dock__label b{color:var(--color-mist);font-weight:500;}
-
-.dots{display:flex;gap:5px;align-items:center;flex-wrap:nowrap;}
-.dot{
-  width:8px;height:8px;
-  border:none;
-  padding:0;
-  border-radius:var(--radius-circle);
-  background:var(--color-slate);
+/* ============ Export bar ============ */
+.export-bar{display:flex;gap:10px;flex-wrap:wrap;}
+.export-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--border-hairline);
+  background:transparent;
+  color:var(--color-mist);
+  border-radius:var(--radius-btn);
+  padding:12px 18px;
+  font-weight:500;font-size:13px;letter-spacing:0.014em;
   cursor:pointer;
-  transition:background .2s ease,width .2s ease;
-  flex:0 0 auto;
+  transition:background .15s ease,border-color .15s ease,color .15s ease;
 }
+.export-btn:hover{background:var(--color-obsidian);border-color:var(--color-slate);color:var(--color-pure-white);}
+.export-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.6;}
+
+/* ============ Dock ============ */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(4,5,6,0.9);backdrop-filter:blur(48px);-webkit-backdrop-filter:blur(48px);border-top:1px solid var(--border-hairline);padding:12px 16px calc(12px + env(safe-area-inset-bottom));}
+.dock__inner{max-width:var(--page-max);margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.dock__center{flex:1 1 180px;min-width:0;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.dock__label{font-family:var(--font-geistmono);font-size:11px;font-weight:400;letter-spacing:0.05em;text-transform:uppercase;color:var(--color-smoke);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
+.dock__label b{color:var(--color-mist);font-weight:500;}
+.dots{display:flex;gap:5px;align-items:center;flex-wrap:nowrap;overflow-x:auto;max-width:100%;padding-bottom:2px;}
+.dot{width:8px;height:8px;border:none;padding:0;border-radius:var(--radius-circle);background:var(--color-slate);cursor:pointer;transition:background .2s ease,width .2s ease;flex:0 0 auto;}
 .dot:hover{background:var(--color-iron);}
 .dot.is-done{background:var(--color-smoke);}
-.dot.is-current{
-  width:22px;
-  border-radius:var(--radius-pill);
-  background:var(--color-coral-pulse);
-}
+.dot.is-current{width:22px;border-radius:var(--radius-pill);background:var(--color-coral-pulse);}
 .dot:focus-visible{outline:2px solid var(--color-mist);outline-offset:2px;}
 
 /* ============ Botones ============ */
-.btn{
-  border:1px solid var(--border-hairline);
-  border-radius:var(--radius-btn);
-  padding:12px 20px;
-  font-weight:500;
-  font-size:13px;
-  letter-spacing:0.014em;
-  cursor:pointer;
-  white-space:nowrap;
-  transition:background .15s ease,border-color .15s ease,transform .15s ease,color .15s ease,opacity .15s ease;
-  flex:0 0 auto;
-}
+.btn{border:1px solid var(--border-hairline);border-radius:var(--radius-btn);padding:12px 20px;font-weight:500;font-size:13px;letter-spacing:0.014em;cursor:pointer;white-space:nowrap;transition:background .15s ease,border-color .15s ease,transform .15s ease,color .15s ease,opacity .15s ease;flex:0 0 auto;}
 .btn:active{transform:scale(.98);}
 .btn:disabled{opacity:.32;cursor:not-allowed;transform:none;}
-.btn--cta{
-  background:var(--color-mist);
-  color:var(--color-iron);
-  border-color:var(--color-mist);
-  box-shadow:var(--shadow-lift);
-}
+.btn--cta{background:var(--color-mist);color:var(--color-iron);border-color:var(--color-mist);box-shadow:var(--shadow-lift);}
 .btn--cta:hover:not(:disabled){background:var(--color-pure-white);border-color:var(--color-pure-white);}
 .btn--ghost{background:transparent;color:var(--color-mist);}
 .btn--ghost:hover:not(:disabled){background:var(--color-obsidian);border-color:var(--color-slate);}
-.btn--send{
-  background:var(--color-coral-pulse);
-  color:var(--color-void-black);
-  border-color:var(--color-coral-pulse);
-  box-shadow:0 0 20px rgba(255,99,99,0.28);
-}
+.btn--send{background:var(--color-coral-pulse);color:var(--color-void-black);border-color:var(--color-coral-pulse);box-shadow:0 0 20px rgba(255,99,99,0.28);}
 .btn--send:hover:not(:disabled){background:#ff7b7b;border-color:#ff7b7b;}
+.btn--danger{background:transparent;color:var(--color-coral-pulse);border-color:rgba(255,99,99,0.3);}
+.btn--danger:hover:not(:disabled){background:var(--color-ember-hush);border-color:var(--color-coral-pulse);}
 
 /* ============ Toast ============ */
-.toast{
-  position:fixed;
-  left:50%;
-  bottom:calc(var(--dock-h) + 20px);
-  transform:translate(-50%,16px);
-  z-index:80;
-  background:var(--color-ink);
-  border:1px solid var(--border-hairline);
-  border-radius:var(--radius-input);
-  padding:14px 22px;
-  font-family:var(--font-geistmono);
-  font-weight:500;
-  font-size:12px;
-  letter-spacing:0.017em;
-  text-transform:uppercase;
-  color:var(--color-mist);
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .25s ease,transform .25s ease;
-  max-width:90vw;
-  text-align:center;
-  box-shadow:var(--shadow-edge);
-}
+.toast{position:fixed;left:50%;bottom:calc(var(--dock-h) + 20px);transform:translate(-50%,16px);z-index:200;background:var(--color-ink);border:1px solid var(--border-hairline);border-radius:var(--radius-input);padding:14px 22px;font-family:var(--font-geistmono);font-weight:500;font-size:12px;letter-spacing:0.017em;text-transform:uppercase;color:var(--color-mist);opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;max-width:90vw;text-align:center;box-shadow:var(--shadow-edge);}
 .toast.is-on{opacity:1;transform:translate(-50%,0);}
 
-.helper{
-  font-size:14px;
-  font-weight:400;
-  line-height:1.6;
-  color:var(--color-smoke);
-  margin:16px 0 0;
-  max-width:80ch;
-}
+.helper{font-size:14px;font-weight:400;line-height:1.6;color:var(--color-smoke);margin:16px 0 0;max-width:80ch;}
 .helper strong{color:var(--color-mist);font-weight:500;}
+
+/* ============ Modales ============ */
+.modal{position:fixed;inset:0;z-index:150;display:flex;align-items:center;justify-content:center;padding:16px;}
+.modal[hidden]{display:none;}
+.modal__overlay{position:absolute;inset:0;background:rgba(4,5,6,0.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
+.modal__content{position:relative;z-index:1;background:var(--color-ink);border:1px solid var(--border-hairline);border-radius:var(--radius-card-lg);padding:24px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-edge);animation:modalIn .22s ease both;}
+.modal__content--wide{max-width:760px;}
+@keyframes modalIn{from{opacity:0;transform:scale(.97) translateY(6px);}to{opacity:1;transform:scale(1) translateY(0);}}
+@media (prefers-reduced-motion:reduce){.modal__content{animation:none;}}
+.modal__head{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.modal__head h3{margin:0;font-weight:500;font-size:20px;letter-spacing:0.2px;color:var(--color-pure-white);flex:1;}
+.modal__close{border:1px solid var(--border-hairline);background:transparent;color:var(--color-ash);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;line-height:1;padding:0;display:grid;place-items:center;transition:color .15s ease,border-color .15s ease;}
+.modal__close:hover{color:var(--color-coral-pulse);border-color:var(--color-coral-pulse);}
+.modal__hint{margin:0 0 16px;font-family:var(--font-geistmono);font-size:12px;line-height:1.55;letter-spacing:0.017em;color:var(--color-smoke);}
+.modal__actions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap;}
+
+/* ============ Signature canvas ============ */
+.sign-canvas{
+  display:block;width:100%;height:220px;
+  border:1px solid var(--border-hairline);
+  border-radius:var(--radius-input);
+  background:#ffffff;
+  touch-action:none;
+  cursor:crosshair;
+  user-select:none;
+  -webkit-user-select:none;
+}
+
+/* ============ Historial ============ */
+.history-list{display:flex;flex-direction:column;gap:12px;}
+.history-empty{padding:40px 20px;text-align:center;font-family:var(--font-geistmono);font-size:12px;letter-spacing:0.05em;text-transform:uppercase;color:var(--color-smoke);}
+.history-item{background:var(--color-obsidian);border:1px solid var(--border-hairline);border-radius:var(--radius-card);padding:16px;display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;}
+.history-item__main{flex:1 1 240px;min-width:0;}
+.history-item__title{font-weight:500;font-size:15px;color:var(--color-pure-white);margin:0 0 6px;line-height:1.35;}
+.history-item__meta{font-family:var(--font-geistmono);font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:var(--color-smoke);margin:0;line-height:1.7;}
+.history-item__meta b{color:var(--color-ash);font-weight:500;}
+.history-item__actions{display:flex;gap:8px;flex:0 0 auto;flex-wrap:wrap;}
+.history-badge{display:inline-flex;align-items:center;gap:6px;border-radius:var(--radius-badge);padding:5px 10px;font-family:var(--font-geistmono);font-size:10px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;border:1px solid var(--border-hairline);background:var(--color-graphite);color:var(--color-ash);}
+.history-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;}
+.history-badge[data-clave="APROBADO"]{color:var(--color-success-green);border-color:rgba(89,212,153,0.3);}
+.history-badge[data-clave="REPROBADO"]{color:var(--color-coral-pulse);border-color:rgba(255,99,99,0.3);}
+.history-badge[data-clave="CON OBSERVACIONES"]{color:var(--color-info-blue);border-color:rgba(86,194,255,0.3);}
+.history-mini-btn{border:1px solid var(--border-hairline);background:transparent;color:var(--color-ash);border-radius:var(--radius-badge);padding:7px 12px;font-family:var(--font-geistmono);font-size:11px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;transition:background .15s ease,color .15s ease,border-color .15s ease;white-space:nowrap;}
+.history-mini-btn:hover{background:var(--color-graphite);color:var(--color-mist);border-color:var(--color-slate);}
+.history-mini-btn--danger:hover{color:var(--color-coral-pulse);border-color:var(--color-coral-pulse);background:var(--color-ember-hush);}
+
+/* ============ Footer ============ */
+.footer-meta{text-align:center;font-family:var(--font-geistmono);font-size:12px;letter-spacing:0.017em;color:var(--color-smoke);padding:24px 16px 32px;border-top:1px solid var(--border-hairline);}
 
 /* ============ Responsive ============ */
 @media (max-width:560px){
@@ -764,8 +377,10 @@ input[type="date"]::-webkit-calendar-picker-indicator{
   .pill{flex:1 1 0;}
   .pill span{text-align:center;width:100%;}
   .dock__inner{gap:8px;}
-  .btn{padding:12px 16px;font-size:12px;}
+  .btn{padding:12px 14px;font-size:12px;}
   .nav__live{display:none;}
+  .photo-grid{grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px;}
+  .sign-canvas{height:180px;}
 }
 </style>
 </head>
@@ -783,17 +398,20 @@ input[type="date"]::-webkit-calendar-picker-indicator{
       <span class="logo__diamond" aria-hidden="true"></span>
       <span>Vent Set</span>
     </div>
-    <div class="nav__step" id="navStep"><b>Paso 1</b> / 10</div>
-    <div class="nav__live" id="navLive">
-      <span class="is-ok"><b id="navOk">0</b> OK</span>
-      <span class="is-nok"><b id="navNok">0</b> NOK</span>
+    <div class="nav__step" id="navStep"><b>Paso 1</b> / 11</div>
+    <div class="nav__actions">
+      <button type="button" class="nav-btn" id="btnHistory">Historial <span id="historyCount"></span></button>
+      <div class="nav__live" id="navLive">
+        <span class="is-ok"><b id="navOk">0</b> OK</span>
+        <span class="is-nok"><b id="navNok">0</b> NOK</span>
+      </div>
     </div>
   </div>
 </header>
 
 <main>
 
-<!-- ================= HERO (solo hoja 1) ================= -->
+<!-- ================= HERO ================= -->
 <section class="hero" id="hero">
   <div class="hero__wash" aria-hidden="true"></div>
   <div class="hero__bar hero__bar--a" aria-hidden="true"></div>
@@ -804,7 +422,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{
     <h1 class="display">Auditoría de extractores centrífugos Vent Set</h1>
     <p class="tagline">
       Inspección y mantenimiento preventivo. El check list es autogestionado —
-      marca cada criterio conforme lo verificas en sitio y los resultados se calculan solos.
+      marca cada criterio, adjunta evidencia fotográfica y firma digitalmente.
     </p>
     <div class="warn">
       <span aria-hidden="true">▲</span>
@@ -830,22 +448,29 @@ input[type="date"]::-webkit-calendar-picker-indicator{
       </div>
       <div class="card card--lg">
         <div style="padding:16px 0;">
-          <div class="grid-4">
+          <p class="helper" style="margin-top:0;">
+            Todos los campos de esta sección son <strong>obligatorios</strong>.
+          </p>
+          <div class="grid-4" style="margin-top:16px;">
             <label class="field">
-              <span class="field-label">Fecha de inspección</span>
-              <input type="date" id="fecha_inspeccion">
+              <span class="field-label">Fecha de inspección<span class="req">*</span></span>
+              <input type="date" id="fecha_inspeccion" required>
+              <span class="field-error">Campo obligatorio</span>
             </label>
             <label class="field">
-              <span class="field-label">Ubicación / restaurante</span>
-              <input type="text" id="ubicacion" placeholder="Sucursal Centro" autocomplete="off">
+              <span class="field-label">Ubicación / restaurante<span class="req">*</span></span>
+              <input type="text" id="ubicacion" placeholder="Sucursal Centro" autocomplete="off" required>
+              <span class="field-error">Campo obligatorio</span>
             </label>
             <label class="field">
-              <span class="field-label">ID / Tag del equipo</span>
-              <input type="text" id="id_tag" placeholder="VS-001" autocomplete="off">
+              <span class="field-label">ID / Tag del equipo<span class="req">*</span></span>
+              <input type="text" id="id_tag" placeholder="VS-001" autocomplete="off" required>
+              <span class="field-error">Campo obligatorio</span>
             </label>
             <label class="field">
-              <span class="field-label">Inspector responsable</span>
-              <input type="text" id="inspector" placeholder="Nombre completo" autocomplete="off">
+              <span class="field-label">Inspector responsable<span class="req">*</span></span>
+              <input type="text" id="inspector" placeholder="Nombre completo" autocomplete="off" required>
+              <span class="field-error">Campo obligatorio</span>
             </label>
           </div>
         </div>
@@ -853,7 +478,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{
     </div>
   </section>
 
-  <!-- ---- HOJAS 01–06 · CHECK LIST (generadas por JS) ---- -->
+  <!-- ---- HOJAS 01–06 · CHECK LIST ---- -->
   <div id="checklistSteps"></div>
 
   <!-- ---- HOJA · RESULTADO FINAL ---- -->
@@ -906,6 +531,21 @@ input[type="date"]::-webkit-calendar-picker-indicator{
         El veredicto se calcula automáticamente: cualquier criterio marcado como <strong>CRÍTICO</strong>
         en NOK, o más de 3 criterios NOK, reprochan el equipo de inmediato.
       </p>
+
+      <div class="widget" style="margin-top:28px;">
+        <p class="widget-title">Exportar informe</p>
+        <div class="export-bar">
+          <button type="button" class="export-btn" id="btnPDF">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+            Exportar PDF
+          </button>
+          <button type="button" class="export-btn" id="btnXML">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Exportar XML
+          </button>
+        </div>
+        <p class="widget-hint">El PDF se genera en una ventana de impresión (elige “Guardar como PDF”). El XML descarga el archivo directamente.</p>
+      </div>
     </div>
   </section>
 
@@ -948,26 +588,61 @@ input[type="date"]::-webkit-calendar-picker-indicator{
         <span class="sec-num">✍</span>
         <h2 class="sec-title">Cierre y firmas</h2>
       </div>
+
       <div class="card card--lg">
         <div style="padding:16px 0;">
-          <div class="sign-grid">
-            <label class="field">
+          <p class="helper" style="margin-top:0;">
+            Toca el recuadro de cada firma para firmar digitalmente con el dedo o el ratón.
+          </p>
+
+          <div class="grid-2" style="margin-top:20px;" id="signaturesGrid">
+
+            <div class="signature-field">
               <span class="field-label">Elaboró · Técnico inspector</span>
-              <input type="text" id="firma_tecnico" placeholder="Nombre y firma" autocomplete="off">
-            </label>
-            <label class="field">
+              <input type="text" id="firma_tecnico" placeholder="Nombre completo" autocomplete="off">
+              <div class="signature-row">
+                <div class="signature-preview" data-sign="tecnico" role="button" tabindex="0" aria-label="Firmar técnico inspector">
+                  <div class="signature-preview__empty"><b>+ Firmar</b>Toca para firmar</div>
+                </div>
+                <button type="button" class="signature-clear" data-clear="tecnico" hidden aria-label="Eliminar firma">×</button>
+              </div>
+            </div>
+
+            <div class="signature-field">
               <span class="field-label">Revisó · Depto. Mantenimiento</span>
-              <input type="text" id="firma_mantenimiento" placeholder="Nombre y firma" autocomplete="off">
-            </label>
-            <label class="field">
+              <input type="text" id="firma_mantenimiento" placeholder="Nombre completo" autocomplete="off">
+              <div class="signature-row">
+                <div class="signature-preview" data-sign="mantenimiento" role="button" tabindex="0" aria-label="Firmar mantenimiento">
+                  <div class="signature-preview__empty"><b>+ Firmar</b>Toca para firmar</div>
+                </div>
+                <button type="button" class="signature-clear" data-clear="mantenimiento" hidden aria-label="Eliminar firma">×</button>
+              </div>
+            </div>
+
+            <div class="signature-field">
               <span class="field-label">Autorizó · Depto. Proyectos</span>
-              <input type="text" id="firma_proyectos" placeholder="Nombre y firma" autocomplete="off">
-            </label>
-            <label class="field">
+              <input type="text" id="firma_proyectos" placeholder="Nombre completo" autocomplete="off">
+              <div class="signature-row">
+                <div class="signature-preview" data-sign="proyectos" role="button" tabindex="0" aria-label="Firmar proyectos">
+                  <div class="signature-preview__empty"><b>+ Firmar</b>Toca para firmar</div>
+                </div>
+                <button type="button" class="signature-clear" data-clear="proyectos" hidden aria-label="Eliminar firma">×</button>
+              </div>
+            </div>
+
+            <div class="signature-field">
               <span class="field-label">Encargado de sucursal</span>
-              <input type="text" id="firma_encargado" placeholder="Nombre y firma" autocomplete="off">
-            </label>
+              <input type="text" id="firma_encargado" placeholder="Nombre completo" autocomplete="off">
+              <div class="signature-row">
+                <div class="signature-preview" data-sign="encargado" role="button" tabindex="0" aria-label="Firmar encargado">
+                  <div class="signature-preview__empty"><b>+ Firmar</b>Toca para firmar</div>
+                </div>
+                <button type="button" class="signature-clear" data-clear="encargado" hidden aria-label="Eliminar firma">×</button>
+              </div>
+            </div>
+
           </div>
+
           <p class="helper" id="cierreHelper"></p>
         </div>
       </div>
@@ -976,7 +651,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 
 </div>
 
-<!-- ================= FOOTER META ================= -->
+<!-- ================= FOOTER ================= -->
 <footer class="footer-meta">
   <span>v1.0.0</span>|<span>Vent Set Audit</span>|<span>Departamento de Proyectos</span>|<span>Agosto 2026</span>
 </footer>
@@ -996,6 +671,40 @@ input[type="date"]::-webkit-calendar-picker-indicator{
   </div>
 </div>
 
+<!-- ================= MODAL: FIRMA ================= -->
+<div class="modal" id="signModal" hidden>
+  <div class="modal__overlay" data-close="signModal"></div>
+  <div class="modal__content">
+    <div class="modal__head">
+      <h3 id="signModalTitle">Firma digital</h3>
+      <button type="button" class="modal__close" data-close="signModal" aria-label="Cerrar">×</button>
+    </div>
+    <p class="modal__hint">Dibuja tu firma dentro del recuadro blanco. Usa el dedo o el ratón.</p>
+    <canvas id="signCanvas" class="sign-canvas"></canvas>
+    <div class="modal__actions">
+      <button type="button" class="btn btn--ghost" id="signClear">Limpiar</button>
+      <button type="button" class="btn btn--cta" id="signSave">Guardar firma</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODAL: HISTORIAL ================= -->
+<div class="modal" id="historyModal" hidden>
+  <div class="modal__overlay" data-close="historyModal"></div>
+  <div class="modal__content modal__content--wide">
+    <div class="modal__head">
+      <h3>Historial de inspecciones</h3>
+      <button type="button" class="modal__close" data-close="historyModal" aria-label="Cerrar">×</button>
+    </div>
+    <p class="modal__hint">Registros guardados localmente en este navegador. Se conservan los últimos 50.</p>
+    <div class="history-list" id="historyList"></div>
+    <div class="modal__actions">
+      <button type="button" class="btn btn--danger" id="historyClear">Borrar todo</button>
+      <button type="button" class="btn btn--ghost" data-close="historyModal">Cerrar</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -1006,7 +715,14 @@ input[type="date"]::-webkit-calendar-picker-indicator{
    Flujo en Make:  Custom webhook  →  Google Sheets · "Add a Row"
    Después de la primera petición real, pulsa "Redetermine data structure".
    ========================================================================== */
-const WEBHOOK_URL = 'https://hook.us2.make.com/q3mtnkujw5hw7dfrbf9satjwqtus17dn';
+const WEBHOOK_URL = 'https://hook.us1.make.com/REEMPLAZA-ESTA-URL-CON-TU-CUSTOM-WEBHOOK';
+
+/* Límites */
+const MAX_PHOTOS_PER_SEC = 6;
+const PHOTO_MAX_DIM = 900;       /* px para display/payload */
+const PHOTO_QUALITY  = 0.72;
+const HISTORY_KEY    = 'ventset_history_v1';
+const HISTORY_MAX    = 50;
 
 
 /* ==========================================================================
@@ -1116,7 +832,26 @@ const SECCIONES = [
 
 
 /* ==========================================================================
-   2. CÁLCULOS AUTOMATIZADOS
+   2. ESTADO GLOBAL
+   ========================================================================== */
+const PHOTOS = {};        /* { s1: [{name, data, ts}, ...], ... } */
+const SIGNATURES = {      /* { tecnico: dataURL|null, ... } */
+  tecnico: null,
+  mantenimiento: null,
+  proyectos: null,
+  encargado: null
+};
+const SIGN_LABELS = {
+  tecnico: 'Elaboró · Técnico inspector',
+  mantenimiento: 'Revisó · Depto. Mantenimiento',
+  proyectos: 'Autorizó · Depto. Proyectos',
+  encargado: 'Encargado de sucursal'
+};
+SECCIONES.forEach(s => { PHOTOS[s.id] = []; });
+
+
+/* ==========================================================================
+   3. CÁLCULOS AUTOMATIZADOS
    ========================================================================== */
 function leerAmps(){
   const num = id => {
@@ -1141,7 +876,6 @@ const CALCS = {
     if(v > 2)   return { estado:'NOK', nota: v + ' cm — Banda demasiado floja: patinaje, bajo caudal y chillido.' };
     return { estado:'OK', nota: v + ' cm — Dentro del rango óptimo de 1.5 a 2 cm.' };
   },
-
   amperaje(){
     const a = leerAmps();
     if(a.l1 === null || a.l2 === null || a.l3 === null)
@@ -1153,7 +887,6 @@ const CALCS = {
       return { estado:'NOK', nota:'ELEVADO — Línea con ' + max + ' A supera la placa de ' + a.placa + ' A. Reportar de inmediato.' };
     return { estado:'OK', nota:'Normal — L1 ' + a.l1 + ' A · L2 ' + a.l2 + ' A · L3 ' + a.l3 + ' A ≤ placa ' + a.placa + ' A.' };
   },
-
   balance(){
     const a = leerAmps();
     if(a.l1 === null || a.l2 === null || a.l3 === null)
@@ -1170,7 +903,7 @@ const CALCS = {
 
 
 /* ==========================================================================
-   3. TEMPLATES
+   4. TEMPLATES
    ========================================================================== */
 function checkRow(it){
   return '' +
@@ -1227,9 +960,23 @@ function widgetAmps(){
   '</div>';
 }
 
+function photoWidget(secId){
+  return '' +
+  '<div class="widget widget--photo" data-sec="' + secId + '">' +
+    '<p class="widget-title">Evidencia fotográfica</p>' +
+    '<div class="photo-grid" id="photos-' + secId + '"></div>' +
+    '<label class="photo-add">' +
+      '<input type="file" accept="image/*" multiple data-photo-sec="' + secId + '">' +
+      '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>' +
+      '<span>Añadir foto o tomar foto</span>' +
+    '</label>' +
+    '<p class="widget-hint">Máximo ' + MAX_PHOTOS_PER_SEC + ' fotos por sección. Se comprimen automáticamente.</p>' +
+  '</div>';
+}
+
 
 /* ==========================================================================
-   4. RENDER DE HOJAS DE CHECK LIST (01–06)
+   5. RENDER DE HOJAS DE CHECK LIST
    ========================================================================== */
 function renderChecklistSteps(){
   const cont = document.getElementById('checklistSteps');
@@ -1255,15 +1002,124 @@ function renderChecklistSteps(){
           '<h2 class="sec-title">' + sec.titulo + '</h2>' +
         '</div>' +
         '<div class="card card--lg">' + body + '</div>' +
+        photoWidget(sec.id) +
       '</div>';
 
     cont.appendChild(el);
+  });
+
+  /* Bind de inputs de foto */
+  document.querySelectorAll('input[type="file"][data-photo-sec]').forEach(function(inp){
+    inp.addEventListener('change', function(){
+      handlePhotoInput(inp.dataset.photoSec, inp);
+    });
+  });
+
+  /* Render inicial de miniaturas */
+  SECCIONES.forEach(s => renderPhotos(s.id));
+}
+
+function renderPhotos(secId){
+  const grid = document.getElementById('photos-' + secId);
+  if(!grid) return;
+  grid.innerHTML = '';
+
+  PHOTOS[secId].forEach(function(ph, idx){
+    const wrap = document.createElement('div');
+    wrap.className = 'photo-thumb';
+    wrap.innerHTML =
+      '<img src="' + ph.data + '" alt="Evidencia ' + (idx+1) + '">' +
+      '<button type="button" data-remove-sec="' + secId + '" data-remove-idx="' + idx + '" aria-label="Eliminar foto">×</button>' +
+      '<span class="photo-thumb__name">' + (ph.name || ('Foto ' + (idx+1))) + '</span>';
+    grid.appendChild(wrap);
+  });
+
+  grid.querySelectorAll('button[data-remove-sec]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      const s = btn.dataset.removeSec;
+      const i = parseInt(btn.dataset.removeIdx, 10);
+      PHOTOS[s].splice(i, 1);
+      renderPhotos(s);
+    });
+  });
+}
+
+function handlePhotoInput(secId, input){
+  const files = Array.prototype.slice.call(input.files || []);
+  if(!files.length) return;
+
+  const slots = MAX_PHOTOS_PER_SEC - PHOTOS[secId].length;
+  if(slots <= 0){
+    toast('Máximo ' + MAX_PHOTOS_PER_SEC + ' fotos por sección');
+    input.value = '';
+    return;
+  }
+  const toAdd = files.slice(0, slots);
+
+  let pending = toAdd.length;
+  toAdd.forEach(function(file){
+    if(!file.type || file.type.indexOf('image/') !== 0){
+      pending--;
+      return;
+    }
+    compressImage(file, PHOTO_MAX_DIM, PHOTO_QUALITY)
+      .then(function(dataUrl){
+        PHOTOS[secId].push({ name: file.name, data: dataUrl, ts: Date.now() });
+        renderPhotos(secId);
+      })
+      .catch(function(){ /* silencioso */ })
+      .then(function(){
+        pending--;
+        if(pending === 0 && files.length > slots){
+          toast('Se añadieron ' + toAdd.length + ' de ' + files.length + ' fotos');
+        }
+      });
+  });
+
+  input.value = '';
+}
+
+function compressImage(file, maxDim, quality){
+  return new Promise(function(resolve, reject){
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = function(e){
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = function(){
+        let w = img.naturalWidth || img.width;
+        let h = img.naturalHeight || img.height;
+        if(!w || !h){ reject(new Error('Imagen inválida')); return; }
+
+        if(w > h && w > maxDim){
+          h = Math.round(h * maxDim / w);
+          w = maxDim;
+        } else if(h >= w && h > maxDim){
+          w = Math.round(w * maxDim / h);
+          h = maxDim;
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+
+        try {
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        } catch(err){
+          reject(err);
+        }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
   });
 }
 
 
 /* ==========================================================================
-   5. EVALUACIÓN AUTOMÁTICA
+   6. EVALUACIÓN AUTOMÁTICA
    ========================================================================== */
 function evaluar(){
   let ok = 0, nok = 0, pend = 0, crit = 0, total = 0;
@@ -1304,7 +1160,7 @@ function veredicto(e){
 
 
 /* ==========================================================================
-   6. ACTUALIZACIÓN DE UI EN VIVO
+   7. ACTUALIZACIÓN DE UI EN VIVO
    ========================================================================== */
 function actualizar(){
   SECCIONES.forEach(function(sec){
@@ -1356,8 +1212,11 @@ function actualizar(){
 
   const ch = document.getElementById('cierreHelper');
   if(ch){
+    const fotosTot = Object.keys(PHOTOS).reduce((s,k) => s + PHOTOS[k].length, 0);
+    const firmas = Object.keys(SIGNATURES).filter(k => SIGNATURES[k]).length;
     ch.innerHTML = 'Veredicto actual: <strong>' + v.texto + '</strong> · ' +
-      e.ok + ' OK · ' + e.nok + ' NOK · ' + e.pend + ' pendiente(s).';
+      e.ok + ' OK · ' + e.nok + ' NOK · ' + e.pend + ' pendiente(s) · ' +
+      fotosTot + ' foto(s) · ' + firmas + '/4 firma(s).';
   }
 
   refrescarDots();
@@ -1365,16 +1224,14 @@ function actualizar(){
 
 
 /* ==========================================================================
-   7. NAVEGACIÓN ENTRE HOJAS
+   8. NAVEGACIÓN ENTRE HOJAS
    ========================================================================== */
 let STEPS = [];
 let currentStep = 0;
 
 function buildStepList(){
   STEPS = Array.prototype.slice.call(document.querySelectorAll('#steps .step'));
-  STEPS.forEach(function(el, i){
-    el.hidden = (i !== 0);
-  });
+  STEPS.forEach(function(el, i){ el.hidden = (i !== 0); });
   buildDots();
 }
 
@@ -1393,8 +1250,7 @@ function buildDots(){
 }
 
 function refrescarDots(){
-  const dots = document.querySelectorAll('#dots .dot');
-  dots.forEach(function(d, i){
+  document.querySelectorAll('#dots .dot').forEach(function(d, i){
     d.classList.toggle('is-current', i === currentStep);
     d.classList.toggle('is-done', i < currentStep);
   });
@@ -1405,11 +1261,9 @@ function goTo(index, opts){
   STEPS.forEach(function(el, i){ el.hidden = (i !== index); });
   currentStep = index;
 
-  /* Hero solo en la primera hoja */
   const hero = document.getElementById('hero');
   if(hero) hero.hidden = (index !== 0);
 
-  /* Etiqueta del dock y del nav */
   const stepEl = STEPS[index];
   const titulo = stepEl.dataset.stepTitle || 'Paso ' + (index + 1);
   const num = index + 1;
@@ -1420,7 +1274,6 @@ function goTo(index, opts){
   document.getElementById('navStep').innerHTML =
     '<b>Paso ' + num + '</b> / ' + total + ' · ' + titulo;
 
-  /* Botones */
   const prev = document.getElementById('btnPrev');
   const next = document.getElementById('btnNext');
   const send = document.getElementById('btnEnviar');
@@ -1431,21 +1284,288 @@ function goTo(index, opts){
   next.hidden = isLast;
   send.hidden = !isLast;
 
-  /* Scroll al inicio de la hoja */
-  if(!opts || opts.scroll !== false){
-    window.scrollTo(0, 0);
-  }
+  if(!opts || opts.scroll !== false){ window.scrollTo(0, 0); }
 
   refrescarDots();
   actualizar();
 }
 
-function nextStep(){ goTo(currentStep + 1); }
+function nextStep(){
+  if(currentStep === 0 && !validateIdentificacion()) return;
+  goTo(currentStep + 1);
+}
 function prevStep(){ goTo(currentStep - 1); }
 
 
 /* ==========================================================================
-   8. RECOLECCIÓN DE DATOS → OBJETO PLANO DE STRINGS
+   9. VALIDACIÓN DE CAMPOS OBLIGATORIOS
+   ========================================================================== */
+const REQUIRED_IDS = ['fecha_inspeccion', 'ubicacion', 'id_tag', 'inspector'];
+
+function validateIdentificacion(){
+  let valid = true;
+  let firstBad = null;
+
+  REQUIRED_IDS.forEach(function(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    const empty = !String(el.value || '').trim();
+    el.classList.toggle('has-error', empty);
+    if(empty){
+      valid = false;
+      if(!firstBad) firstBad = el;
+    }
+  });
+
+  if(!valid){
+    toast('Completa los campos obligatorios');
+    if(firstBad){
+      try { firstBad.focus({ preventScroll:false }); } catch(e){ firstBad.focus(); }
+    }
+  }
+  return valid;
+}
+
+
+/* ==========================================================================
+   10. FIRMA DIGITAL (canvas)
+   ========================================================================== */
+let signCtx = null;
+let signDrawing = false;
+let signLastX = 0, signLastY = 0;
+let signDirty = false;
+let currentSignatureKey = null;
+let signCanvasBound = false;
+
+function setupSignatureCanvas(){
+  const canvas = document.getElementById('signCanvas');
+  if(!canvas || signCanvasBound) return;
+  signCanvasBound = true;
+
+  signCtx = canvas.getContext('2d');
+
+  canvas.addEventListener('pointerdown', onSignDown);
+  canvas.addEventListener('pointermove', onSignMove);
+  canvas.addEventListener('pointerup',   onSignUp);
+  canvas.addEventListener('pointercancel', onSignUp);
+  canvas.addEventListener('pointerleave', onSignUp);
+
+  /* Touch fallback para navegadores sin Pointer Events */
+  if(!('PointerEvent' in window)){
+    canvas.addEventListener('touchstart', function(e){
+      e.preventDefault();
+      const t = e.touches[0];
+      onSignDownAt(t.clientX, t.clientY);
+    }, { passive:false });
+    canvas.addEventListener('touchmove', function(e){
+      e.preventDefault();
+      const t = e.touches[0];
+      onSignMoveAt(t.clientX, t.clientY);
+    }, { passive:false });
+    canvas.addEventListener('touchend', onSignUp);
+  }
+}
+
+function canvasPos(clientX, clientY){
+  const canvas = document.getElementById('signCanvas');
+  const rect = canvas.getBoundingClientRect();
+  return { x: clientX - rect.left, y: clientY - rect.top };
+}
+
+function onSignDown(e){
+  e.preventDefault();
+  onSignDownAt(e.clientX, e.clientY);
+  try { e.target.setPointerCapture(e.pointerId); } catch(err){}
+}
+
+function onSignDownAt(cx, cy){
+  if(!signCtx) return;
+  signDrawing = true;
+  const p = canvasPos(cx, cy);
+  signLastX = p.x; signLastY = p.y;
+  /* Punto inicial */
+  signCtx.beginPath();
+  signCtx.arc(p.x, p.y, 1.2, 0, Math.PI * 2);
+  signCtx.fillStyle = '#040506';
+  signCtx.fill();
+  signDirty = true;
+}
+
+function onSignMove(e){
+  if(!signDrawing) return;
+  e.preventDefault();
+  onSignMoveAt(e.clientX, e.clientY);
+}
+
+function onSignMoveAt(cx, cy){
+  if(!signDrawing || !signCtx) return;
+  const p = canvasPos(cx, cy);
+  signCtx.beginPath();
+  signCtx.moveTo(signLastX, signLastY);
+  signCtx.lineTo(p.x, p.y);
+  signCtx.stroke();
+  signLastX = p.x; signLastY = p.y;
+  signDirty = true;
+}
+
+function onSignUp(){ signDrawing = false; }
+
+function clearSignatureCanvas(){
+  const canvas = document.getElementById('signCanvas');
+  if(!canvas || !signCtx) return;
+  const rect = canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = Math.max(1, rect.width * dpr);
+  canvas.height = Math.max(1, rect.height * dpr);
+  signCtx.setTransform(1, 0, 0, 1, 0, 0);
+  signCtx.scale(dpr, dpr);
+  signCtx.fillStyle = '#ffffff';
+  signCtx.fillRect(0, 0, rect.width, rect.height);
+  signCtx.lineWidth = 2.4;
+  signCtx.lineCap = 'round';
+  signCtx.lineJoin = 'round';
+  signCtx.strokeStyle = '#040506';
+  signDirty = false;
+}
+
+function openSignatureModal(key){
+  currentSignatureKey = key;
+  const modal = document.getElementById('signModal');
+  const title = document.getElementById('signModalTitle');
+  title.textContent = 'Firma · ' + (SIGN_LABELS[key] || key);
+
+  modal.hidden = false;
+  document.body.style.overflow = 'hidden';
+
+  requestAnimationFrame(function(){
+    setupSignatureCanvas();
+    clearSignatureCanvas();
+  });
+}
+
+function closeSignatureModal(){
+  const modal = document.getElementById('signModal');
+  modal.hidden = true;
+  document.body.style.overflow = '';
+  currentSignatureKey = null;
+  signDrawing = false;
+}
+
+function saveCurrentSignature(){
+  if(!signDirty){
+    toast('Dibuja tu firma antes de guardar');
+    return;
+  }
+  const canvas = document.getElementById('signCanvas');
+  if(!canvas) return;
+
+  /* Recortar márgenes en blanco para compactar */
+  const dataUrl = trimCanvasToJpeg(canvas, 0.78);
+  SIGNATURES[currentSignatureKey] = dataUrl;
+  updateSignaturePreviews();
+  closeSignatureModal();
+  toast('Firma guardada');
+  actualizar();
+}
+
+function trimCanvasToJpeg(sourceCanvas, quality){
+  try {
+    const ctx = sourceCanvas.getContext('2d');
+    const w = sourceCanvas.width;
+    const h = sourceCanvas.height;
+    const img = ctx.getImageData(0, 0, w, h);
+    const data = img.data;
+
+    let minX = w, minY = h, maxX = -1, maxY = -1;
+    for(let y = 0; y < h; y++){
+      for(let x = 0; x < w; x++){
+        const i = (y * w + x) * 4;
+        /* Pixel oscuro = tinta */
+        if(data[i] < 200 || data[i+1] < 200 || data[i+2] < 200){
+          if(x < minX) minX = x;
+          if(x > maxX) maxX = x;
+          if(y < minY) minY = y;
+          if(y > maxY) maxY = y;
+        }
+      }
+    }
+
+    if(maxX < 0){ return sourceCanvas.toDataURL('image/jpeg', quality); }
+
+    const pad = Math.round(Math.min(w, h) * 0.02);
+    minX = Math.max(0, minX - pad);
+    minY = Math.max(0, minY - pad);
+    maxX = Math.min(w - 1, maxX + pad);
+    maxY = Math.min(h - 1, maxY + pad);
+
+    const cw = maxX - minX + 1;
+    const ch = maxY - minY + 1;
+
+    const out = document.createElement('canvas');
+    out.width = cw;
+    out.height = ch;
+    const octx = out.getContext('2d');
+    octx.fillStyle = '#ffffff';
+    octx.fillRect(0, 0, cw, ch);
+    octx.drawImage(sourceCanvas, minX, minY, cw, ch, 0, 0, cw, ch);
+    return out.toDataURL('image/jpeg', quality);
+  } catch(e){
+    return sourceCanvas.toDataURL('image/jpeg', quality);
+  }
+}
+
+function updateSignaturePreviews(){
+  Object.keys(SIGNATURES).forEach(function(key){
+    const preview = document.querySelector('.signature-preview[data-sign="' + key + '"]');
+    const clearBtn = document.querySelector('.signature-clear[data-clear="' + key + '"]');
+    if(!preview) return;
+
+    const sig = SIGNATURES[key];
+    if(sig){
+      preview.innerHTML = '<img src="' + sig + '" alt="Firma ' + key + '">';
+      if(clearBtn) clearBtn.hidden = false;
+    } else {
+      preview.innerHTML = '<div class="signature-preview__empty"><b>+ Firmar</b>Toca para firmar</div>';
+      if(clearBtn) clearBtn.hidden = true;
+    }
+  });
+}
+
+function bindSignatureControls(){
+  document.querySelectorAll('.signature-preview').forEach(function(el){
+    el.addEventListener('click', function(){ openSignatureModal(el.dataset.sign); });
+    el.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        openSignatureModal(el.dataset.sign);
+      }
+    });
+  });
+
+  document.querySelectorAll('.signature-clear').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      const key = btn.dataset.clear;
+      if(SIGNATURES[key]){
+        SIGNATURES[key] = null;
+        updateSignaturePreviews();
+        actualizar();
+      }
+    });
+  });
+
+  document.getElementById('signClear').addEventListener('click', function(){
+    clearSignatureCanvas();
+  });
+
+  document.getElementById('signSave').addEventListener('click', function(){
+    saveCurrentSignature();
+  });
+}
+
+
+/* ==========================================================================
+   11. RECOLECCIÓN DE DATOS
    ========================================================================== */
 function val(id){
   const el = document.getElementById(id);
@@ -1457,18 +1577,18 @@ function recolectar(){
   const v = veredicto(e);
   const d = {};
 
-  /* --- Control de llegada al webhook --- */
+  /* Control de llegada al webhook */
   d.test   = '1';
   d.origen = 'vent-set-auditoria-web';
 
-  /* --- Metadatos --- */
+  /* Metadatos */
   d.timestamp = new Date().toISOString();
   d.fecha_inspeccion = val('fecha_inspeccion');
   d.ubicacion        = val('ubicacion');
   d.id_tag           = val('id_tag');
   d.inspector        = val('inspector');
 
-  /* --- Conteos y resultado --- */
+  /* Conteos y resultado */
   const pct = e.total ? Math.round((e.ok / e.total) * 100) : 0;
   d.total_criterios    = String(e.total);
   d.total_ok           = String(e.ok);
@@ -1480,13 +1600,13 @@ function recolectar(){
   d.resultado_clave    = v.clave;
   d.resultado_final    = v.texto;
 
-  /* --- Cada criterio como campo plano --- */
+  /* Criterios planos */
   Object.keys(e.estados).forEach(function(k){
     d['item_' + k] = e.estados[k].estado;
     if(e.estados[k].nota) d['item_' + k + '_nota'] = e.estados[k].nota;
   });
 
-  /* --- Mediciones --- */
+  /* Mediciones */
   const a = leerAmps();
   d.deflexion_cm = val('deflexion');
   d.amp_l1    = (a.l1    === null) ? '' : String(a.l1);
@@ -1505,21 +1625,40 @@ function recolectar(){
     d.amp_desbalance_pct = '';
   }
 
-  /* --- Observaciones y firmas --- */
+  /* Fotos por sección (se envían comprimidas en base64) */
+  let totalFotos = 0;
+  SECCIONES.forEach(function(sec){
+    const arr = PHOTOS[sec.id] || [];
+    d['fotos_' + sec.id + '_count'] = String(arr.length);
+    totalFotos += arr.length;
+    arr.forEach(function(ph, i){
+      d['foto_' + sec.id + '_' + (i+1)] = ph.data;
+    });
+  });
+  d.total_fotos = String(totalFotos);
+
+  /* Firmas */
+  d.firma_tecnico        = val('firma_tecnico');
+  d.firma_mantenimiento  = val('firma_mantenimiento');
+  d.firma_proyectos      = val('firma_proyectos');
+  d.firma_encargado      = val('firma_encargado');
+
+  d.sig_tecnico_img       = SIGNATURES.tecnico || '';
+  d.sig_mantenimiento_img = SIGNATURES.mantenimiento || '';
+  d.sig_proyectos_img     = SIGNATURES.proyectos || '';
+  d.sig_encargado_img     = SIGNATURES.encargado || '';
+
+  /* Observaciones */
   d.hallazgo_principal  = val('hallazgo_principal');
   d.accion_correctiva   = val('accion_correctiva');
   d.recomendacion       = val('recomendacion');
-  d.firma_tecnico       = val('firma_tecnico');
-  d.firma_mantenimiento = val('firma_mantenimiento');
-  d.firma_proyectos     = val('firma_proyectos');
-  d.firma_encargado     = val('firma_encargado');
 
   return d;
 }
 
 
 /* ==========================================================================
-   9. ENVÍO AL CUSTOM WEBHOOK DE MAKE.COM
+   12. ENVÍO AL CUSTOM WEBHOOK DE MAKE.COM
    --------------------------------------------------------------------------
    · URLSearchParams  →  body urlencoded (application/x-www-form-urlencoded)
    · keepalive: true  →  la petición sobrevive si el usuario cambia de página
@@ -1528,7 +1667,6 @@ function recolectar(){
    ========================================================================== */
 function enviarWebhook(datos){
   const params = new URLSearchParams();
-
   Object.keys(datos).forEach(function(k){
     params.append(k, String(datos[k] === null || datos[k] === undefined ? '' : datos[k]));
   });
@@ -1543,23 +1681,460 @@ function enviarWebhook(datos){
       keepalive: true
     })
     .then(function(res){
-      if(res && res.ok){
-        toast('Datos enviados a Make ✓');
-      } else {
-        toast('Make respondió ' + (res ? res.status : '—'));
-      }
+      if(res && res.ok){ toast('Datos enviados a Make ✓'); }
+      else { toast('Make respondió ' + (res ? res.status : '—')); }
     })
-    .catch(function(){
-      toast('Sin conexión · revisa tu red');
-    });
+    .catch(function(){ toast('Sin conexión · guardado localmente'); });
   } catch (err) {
-    /* Silencioso a propósito: nunca bloqueamos al inspector */
+    /* Silencioso */
   }
 }
 
 
 /* ==========================================================================
-   10. TOAST
+   13. EXPORTAR PDF (ventana de impresión)
+   ========================================================================== */
+function escapeHTML(s){
+  return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function buildPrintableHTML(datos){
+  const fecha = datos.fecha_inspeccion || '—';
+  const ubic  = datos.ubicacion || '—';
+  const tag   = datos.id_tag || '—';
+  const insp  = datos.inspector || '—';
+
+  /* Bloque de checklist */
+  let checklistHTML = '';
+  SECCIONES.forEach(function(sec){
+    checklistHTML += '<h2 class="sec">' + sec.num + ' · ' + escapeHTML(sec.titulo) + '</h2>';
+    checklistHTML += '<table class="tbl"><thead><tr><th>Criterio</th><th class="estado-col">Estado</th><th>Nota</th></tr></thead><tbody>';
+    sec.items.forEach(function(it){
+      const est = datos['item_' + it.id] || 'PENDIENTE';
+      const nota = datos['item_' + it.id + '_nota'] || '';
+      const cls = (est === 'OK') ? 'ok' : (est === 'NOK') ? 'nok' : 'pend';
+      checklistHTML += '<tr>' +
+        '<td>' + escapeHTML(it.t) + (it.critico ? ' <span class="crit">CRÍTICO</span>' : '') + '</td>' +
+        '<td class="estado-col"><span class="badge ' + cls + '">' + est + '</span></td>' +
+        '<td class="nota">' + escapeHTML(nota) + '</td>' +
+      '</tr>';
+    });
+    checklistHTML += '</tbody></table>';
+
+    /* Fotos */
+    const arr = PHOTOS[sec.id] || [];
+    if(arr.length){
+      checklistHTML += '<div class="photos-title">Evidencia fotográfica (' + arr.length + ')</div>';
+      checklistHTML += '<div class="photos">';
+      arr.forEach(function(ph){
+        checklistHTML += '<img src="' + ph.data + '" alt="">';
+      });
+      checklistHTML += '</div>';
+    }
+  });
+
+  /* Firmas */
+  const firmas = [
+    { rol: 'Elaboró · Técnico inspector', nombre: datos.firma_tecnico, img: datos.sig_tecnico_img },
+    { rol: 'Revisó · Depto. Mantenimiento', nombre: datos.firma_mantenimiento, img: datos.sig_mantenimiento_img },
+    { rol: 'Autorizó · Depto. Proyectos', nombre: datos.firma_proyectos, img: datos.sig_proyectos_img },
+    { rol: 'Encargado de sucursal', nombre: datos.firma_encargado, img: datos.sig_encargado_img }
+  ];
+  let firmasHTML = '';
+  firmas.forEach(function(f){
+    firmasHTML += '<div class="firma">' +
+      '<div class="firma__rol">' + escapeHTML(f.rol) + '</div>' +
+      '<div class="firma__img">' + (f.img ? '<img src="' + f.img + '" alt="Firma">' : '<span class="firma__sin">Sin firma</span>') + '</div>' +
+      '<div class="firma__nom">' + escapeHTML(f.nombre || '—') + '</div>' +
+    '</div>';
+  });
+
+  return '<!DOCTYPE html>' +
+  '<html lang="es"><head><meta charset="utf-8"><title>Auditoría Vent Set · ' + escapeHTML(tag) + '</title>' +
+  '<style>' +
+  '@page { size: A4; margin: 14mm 12mm; }' +
+  '* { box-sizing: border-box; }' +
+  'body { font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif; font-size: 10.5px; line-height: 1.5; color: #111; margin: 0; padding: 0; }' +
+  'h1 { font-size: 20px; margin: 0 0 2px; letter-spacing: -0.3px; }' +
+  'h1 span { color: #ff6363; }' +
+  '.sub { color: #666; font-size: 10px; margin: 0 0 16px; letter-spacing: 0.4px; text-transform: uppercase; font-family: "SF Mono", Menlo, monospace; }' +
+  '.meta { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 18px; border: 1px solid #ddd; border-radius: 8px; padding: 12px 16px; margin-bottom: 14px; background: #fafafa; }' +
+  '.meta div { font-size: 10.5px; }' +
+  '.meta b { display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-bottom: 1px; font-family: "SF Mono", Menlo, monospace; }' +
+  '.verdict { display: inline-block; padding: 8px 16px; border-radius: 6px; font-weight: 600; font-size: 12px; letter-spacing: 0.4px; margin-bottom: 14px; border: 1px solid; }' +
+  '.verdict.APROBADO { background: #e6f9ef; border-color: #59d499; color: #0a6b40; }' +
+  '.verdict.REPROBADO { background: #ffe6e6; border-color: #ff6363; color: #a11c1c; }' +
+  '.verdict.CONOBS { background: #e6f2ff; border-color: #56c2ff; color: #1a4f8a; }' +
+  '.verdict.INCOMPLETO { background: #f0f0f0; border-color: #ccc; color: #555; }' +
+  '.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 18px; }' +
+  '.kpi { border: 1px solid #ddd; border-radius: 6px; padding: 8px 10px; }' +
+  '.kpi b { display: block; font-size: 16px; margin-bottom: 1px; }' +
+  '.kpi span { font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; color: #888; font-family: "SF Mono", Menlo, monospace; }' +
+  'h2.sec { font-size: 12px; margin: 16px 0 6px; padding-bottom: 4px; border-bottom: 2px solid #111; letter-spacing: 0.3px; text-transform: uppercase; }' +
+  '.tbl { width: 100%; border-collapse: collapse; margin-bottom: 8px; page-break-inside: auto; }' +
+  '.tbl th, .tbl td { text-align: left; padding: 6px 8px; vertical-align: top; border-bottom: 1px solid #eee; font-size: 10px; }' +
+  '.tbl th { background: #f4f4f4; font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; color: #555; }' +
+  '.estado-col { width: 70px; white-space: nowrap; }' +
+  '.tbl .nota { color: #666; font-size: 9px; max-width: 200px; }' +
+  '.badge { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 9px; font-weight: 600; letter-spacing: 0.4px; }' +
+  '.badge.ok { background: #e6f9ef; color: #0a6b40; }' +
+  '.badge.nok { background: #ffe6e6; color: #a11c1c; }' +
+  '.badge.pend { background: #f0f0f0; color: #666; }' +
+  '.crit { display: inline-block; background: #ffe6e6; color: #a11c1c; padding: 1px 5px; border-radius: 3px; font-size: 8px; font-weight: 600; letter-spacing: 0.4px; margin-left: 4px; }' +
+  '.photos-title { font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; color: #666; margin: 6px 0; font-family: "SF Mono", Menlo, monospace; }' +
+  '.photos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 10px; }' +
+  '.photos img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 5px; border: 1px solid #ddd; }' +
+  '.firmas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 18px; page-break-inside: avoid; }' +
+  '.firma { border: 1px solid #ddd; border-radius: 6px; padding: 8px 10px; }' +
+  '.firma__rol { font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-bottom: 6px; font-family: "SF Mono", Menlo, monospace; }' +
+  '.firma__img { height: 60px; border-bottom: 1px solid #ccc; margin-bottom: 6px; display: flex; align-items: center; justify-content: center; overflow: hidden; }' +
+  '.firma__img img { max-width: 100%; max-height: 100%; }' +
+  '.firma__sin { color: #bbb; font-size: 9px; font-style: italic; }' +
+  '.firma__nom { font-size: 10px; font-weight: 500; }' +
+  '.obs { margin-top: 16px; page-break-inside: avoid; }' +
+  '.obs h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; margin: 0 0 4px; }' +
+  '.obs p { margin: 0 0 10px; font-size: 10px; white-space: pre-wrap; color: #333; border-left: 2px solid #ddd; padding-left: 8px; }' +
+  '.foot { margin-top: 20px; padding-top: 10px; border-top: 1px solid #ddd; color: #888; font-size: 9px; text-align: center; font-family: "SF Mono", Menlo, monospace; }' +
+  '</style></head><body>' +
+
+  '<h1>Auditoría <span>Vent Set</span> · Extractor centrífugo</h1>' +
+  '<p class="sub">Departamento de Proyectos · v1.0 · Documento generado ' + escapeHTML(new Date(datos.timestamp).toLocaleString('es-MX')) + '</p>' +
+
+  '<div class="meta">' +
+    '<div><b>Fecha de inspección</b>' + escapeHTML(fecha) + '</div>' +
+    '<div><b>Ubicación / restaurante</b>' + escapeHTML(ubic) + '</div>' +
+    '<div><b>ID / Tag del equipo</b>' + escapeHTML(tag) + '</div>' +
+    '<div><b>Inspector responsable</b>' + escapeHTML(insp) + '</div>' +
+  '</div>' +
+
+  '<div class="verdict ' + (datos.resultado_clave === 'CON OBSERVACIONES' ? 'CONOBS' : datos.resultado_clave) + '">' +
+    escapeHTML(datos.resultado_final) +
+  '</div>' +
+
+  '<div class="kpis">' +
+    '<div class="kpi"><b>' + escapeHTML(datos.total_criterios) + '</b><span>Criterios</span></div>' +
+    '<div class="kpi"><b>' + escapeHTML(datos.total_ok) + '</b><span>OK</span></div>' +
+    '<div class="kpi"><b>' + escapeHTML(datos.total_nok) + '</b><span>NOK</span></div>' +
+    '<div class="kpi"><b>' + escapeHTML(datos.cumplimiento_pct) + '%</b><span>Cumplimiento</span></div>' +
+  '</div>' +
+
+  checklistHTML +
+
+  '<div class="obs">' +
+    '<h3>Hallazgo / observación principal</h3>' +
+    '<p>' + escapeHTML(datos.hallazgo_principal || '—') + '</p>' +
+    '<h3>Acción correctiva inmediata</h3>' +
+    '<p>' + escapeHTML(datos.accion_correctiva || '—') + '</p>' +
+    '<h3>Recomendación para próxima visita</h3>' +
+    '<p>' + escapeHTML(datos.recomendacion || '—') + '</p>' +
+  '</div>' +
+
+  '<h2 class="sec">Firmas</h2>' +
+  '<div class="firmas">' + firmasHTML + '</div>' +
+
+  '<p class="foot">Auditoría Vent Set · v1.0.0 · ' + escapeHTML(datos.resultado_clave) + ' · ' + escapeHTML(datos.id_tag) + '</p>' +
+
+  '</body></html>';
+}
+
+function exportPDF(){
+  const datos = recolectar();
+  const html = buildPrintableHTML(datos);
+  const win = window.open('', '_blank');
+  if(!win){
+    toast('Permite las ventanas emergentes');
+    return;
+  }
+  win.document.open();
+  win.document.write(html);
+  win.document.close();
+  /* Esperamos a que carguen las imágenes antes de imprimir */
+  setTimeout(function(){
+    try { win.focus(); win.print(); } catch(e){}
+  }, 500);
+}
+
+
+/* ==========================================================================
+   14. EXPORTAR XML
+   ========================================================================== */
+function xmlEsc(s){
+  return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&apos;');
+}
+
+function buildXML(datos){
+  const lines = [];
+  lines.push('<?xml version="1.0" encoding="UTF-8"?>');
+  lines.push('<auditoria version="1.0" origen="vent-set">');
+  lines.push('  <metadata>');
+  lines.push('    <timestamp>' + xmlEsc(datos.timestamp) + '</timestamp>');
+  lines.push('    <fecha_inspeccion>' + xmlEsc(datos.fecha_inspeccion) + '</fecha_inspeccion>');
+  lines.push('    <ubicacion>' + xmlEsc(datos.ubicacion) + '</ubicacion>');
+  lines.push('    <id_tag>' + xmlEsc(datos.id_tag) + '</id_tag>');
+  lines.push('    <inspector>' + xmlEsc(datos.inspector) + '</inspector>');
+  lines.push('  </metadata>');
+
+  lines.push('  <resultado clave="' + xmlEsc(datos.resultado_clave) + '">');
+  lines.push('    <total_criterios>' + xmlEsc(datos.total_criterios) + '</total_criterios>');
+  lines.push('    <total_ok>' + xmlEsc(datos.total_ok) + '</total_ok>');
+  lines.push('    <total_nok>' + xmlEsc(datos.total_nok) + '</total_nok>');
+  lines.push('    <total_pendientes>' + xmlEsc(datos.total_pendientes) + '</total_pendientes>');
+  lines.push('    <cumplimiento_pct>' + xmlEsc(datos.cumplimiento_pct) + '</cumplimiento_pct>');
+  lines.push('  </resultado>');
+
+  lines.push('  <checklist>');
+  SECCIONES.forEach(function(sec){
+    lines.push('    <seccion id="' + xmlEsc(sec.id) + '" numero="' + xmlEsc(sec.num) + '">');
+    lines.push('      <titulo>' + xmlEsc(sec.titulo) + '</titulo>');
+    sec.items.forEach(function(it){
+      const est = datos['item_' + it.id] || 'PENDIENTE';
+      const nota = datos['item_' + it.id + '_nota'] || '';
+      lines.push('      <criterio id="' + xmlEsc(it.id) + '" estado="' + xmlEsc(est) + '" critico="' + (it.critico ? 'true' : 'false') + '">');
+      lines.push('        <descripcion>' + xmlEsc(it.t) + '</descripcion>');
+      if(nota) lines.push('        <nota>' + xmlEsc(nota) + '</nota>');
+      lines.push('      </criterio>');
+    });
+    lines.push('    </seccion>');
+  });
+  lines.push('  </checklist>');
+
+  lines.push('  <mediciones>');
+  lines.push('    <deflexion_cm>' + xmlEsc(datos.deflexion_cm) + '</deflexion_cm>');
+  lines.push('    <amperaje l1="' + xmlEsc(datos.amp_l1) + '" l2="' + xmlEsc(datos.amp_l2) + '" l3="' + xmlEsc(datos.amp_l3) + '" placa="' + xmlEsc(datos.amp_placa) + '" promedio="' + xmlEsc(datos.amp_promedio) + '" desbalance_pct="' + xmlEsc(datos.amp_desbalance_pct) + '"/>');
+  lines.push('  </mediciones>');
+
+  lines.push('  <fotografias total="' + xmlEsc(datos.total_fotos) + '">');
+  SECCIONES.forEach(function(sec){
+    const count = datos['fotos_' + sec.id + '_count'] || '0';
+    lines.push('    <seccion id="' + xmlEsc(sec.id) + '" count="' + xmlEsc(count) + '"/>');
+  });
+  lines.push('  </fotografias>');
+
+  lines.push('  <observaciones>');
+  lines.push('    <hallazgo_principal>' + xmlEsc(datos.hallazgo_principal) + '</hallazgo_principal>');
+  lines.push('    <accion_correctiva>' + xmlEsc(datos.accion_correctiva) + '</accion_correctiva>');
+  lines.push('    <recomendacion>' + xmlEsc(datos.recomendacion) + '</recomendacion>');
+  lines.push('  </observaciones>');
+
+  lines.push('  <firmas>');
+  [['tecnico', 'Elaboró · Técnico inspector'],
+   ['mantenimiento', 'Revisó · Depto. Mantenimiento'],
+   ['proyectos', 'Autorizó · Depto. Proyectos'],
+   ['encargado', 'Encargado de sucursal']].forEach(function(pair){
+    const key = pair[0];
+    const rol = pair[1];
+    const nombre = datos['firma_' + key] || '';
+    const img = datos['sig_' + key + '_img'] || '';
+    lines.push('    <firma rol="' + xmlEsc(rol) + '" tiene_imagen="' + (img ? 'true' : 'false') + '">');
+    lines.push('      <nombre>' + xmlEsc(nombre) + '</nombre>');
+    if(img) lines.push('      <imagen formato="jpeg-base64">' + xmlEsc(img) + '</imagen>');
+    lines.push('    </firma>');
+  });
+  lines.push('  </firmas>');
+
+  lines.push('</auditoria>');
+  return lines.join('\n');
+}
+
+function exportXML(){
+  const datos = recolectar();
+  const xml = buildXML(datos);
+  const filename = 'auditoria-ventset-' + (datos.id_tag || 'sn') + '-' + Date.now() + '.xml';
+  downloadFile(filename, xml, 'application/xml');
+}
+
+function downloadFile(filename, content, mime){
+  try {
+    const blob = new Blob([content], { type: mime + ';charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
+  } catch(e){
+    toast('No se pudo descargar el archivo');
+  }
+}
+
+
+/* ==========================================================================
+   15. HISTORIAL (localStorage)
+   ========================================================================== */
+function loadHistory(){
+  try {
+    const raw = localStorage.getItem(HISTORY_KEY);
+    if(!raw) return [];
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr : [];
+  } catch(e){ return []; }
+}
+
+function saveHistory(records){
+  /* Estrategia: si falla por quota, reducimos y reintentamos */
+  const attempts = [records, records.slice(0, 25), records.slice(0, 10), records.slice(0, 5)];
+  for(const attempt of attempts){
+    try {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(attempt));
+      return true;
+    } catch(e){ /* siguiente intento */ }
+  }
+  return false;
+}
+
+function addToHistory(record){
+  const records = loadHistory();
+  records.unshift(record);
+  if(records.length > HISTORY_MAX) records.length = HISTORY_MAX;
+  return saveHistory(records);
+}
+
+function updateHistoryCount(){
+  const n = loadHistory().length;
+  const el = document.getElementById('historyCount');
+  if(el) el.textContent = n ? '(' + n + ')' : '';
+}
+
+function renderHistory(){
+  const list = document.getElementById('historyList');
+  const records = loadHistory();
+  list.innerHTML = '';
+
+  if(!records.length){
+    list.innerHTML = '<div class="history-empty">Sin registros guardados todavía</div>';
+    return;
+  }
+
+  records.forEach(function(rec, idx){
+    const item = document.createElement('div');
+    item.className = 'history-item';
+
+    const clave = rec.resultado_clave || 'INCOMPLETO';
+    item.innerHTML =
+      '<div class="history-item__main">' +
+        '<p class="history-item__title">' + escapeHTML(rec.id_tag || 'Sin tag') + ' · ' + escapeHTML(rec.ubicacion || 'Sin ubicación') + '</p>' +
+        '<p class="history-item__meta">' +
+          '<b>' + escapeHTML(rec.fecha_inspeccion || '—') + '</b> · ' + escapeHTML(rec.inspector || '—') + '<br>' +
+          escapeHTML(rec.total_ok || 0) + ' OK · ' + escapeHTML(rec.total_nok || 0) + ' NOK · ' + escapeHTML(rec.cumplimiento_pct || 0) + '%' +
+        '</p>' +
+      '</div>' +
+      '<div class="history-item__actions">' +
+        '<span class="history-badge" data-clave="' + escapeHTML(clave) + '">' + escapeHTML(clave) + '</span>' +
+        '<button type="button" class="history-mini-btn" data-hist-pdf="' + idx + '">PDF</button>' +
+        '<button type="button" class="history-mini-btn" data-hist-xml="' + idx + '">XML</button>' +
+        '<button type="button" class="history-mini-btn history-mini-btn--danger" data-hist-del="' + idx + '" aria-label="Eliminar">×</button>' +
+      '</div>';
+    list.appendChild(item);
+  });
+
+  list.querySelectorAll('button[data-hist-del]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      const i = parseInt(btn.dataset.histDel, 10);
+      const recs = loadHistory();
+      recs.splice(i, 1);
+      saveHistory(recs);
+      renderHistory();
+      updateHistoryCount();
+    });
+  });
+
+  list.querySelectorAll('button[data-hist-pdf]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      const i = parseInt(btn.dataset.histPdf, 10);
+      const rec = loadHistory()[i];
+      if(!rec) return;
+      const html = buildPrintableHTML(rec);
+      const win = window.open('', '_blank');
+      if(!win){ toast('Permite las ventanas emergentes'); return; }
+      win.document.open();
+      win.document.write(html);
+      win.document.close();
+      setTimeout(function(){ try { win.focus(); win.print(); } catch(e){} }, 500);
+    });
+  });
+
+  list.querySelectorAll('button[data-hist-xml]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      const i = parseInt(btn.dataset.histXml, 10);
+      const rec = loadHistory()[i];
+      if(!rec) return;
+      const xml = buildXML(rec);
+      downloadFile('auditoria-ventset-' + (rec.id_tag || 'sn') + '-' + Date.now() + '.xml', xml, 'application/xml');
+    });
+  });
+}
+
+function openHistory(){
+  renderHistory();
+  document.getElementById('historyModal').hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeHistory(){
+  document.getElementById('historyModal').hidden = true;
+  document.body.style.overflow = '';
+}
+
+
+/* ==========================================================================
+   16. RESET DEL FORMULARIO
+   ========================================================================== */
+const RESET_TEXT_IDS = [
+  'ubicacion', 'id_tag', 'inspector',
+  'deflexion', 'amp_l1', 'amp_l2', 'amp_l3', 'amp_placa',
+  'hallazgo_principal', 'accion_correctiva', 'recomendacion',
+  'firma_tecnico', 'firma_mantenimiento', 'firma_proyectos', 'firma_encargado'
+];
+
+function resetForm(){
+  /* Textos / números / textareas */
+  RESET_TEXT_IDS.forEach(function(id){
+    const el = document.getElementById(id);
+    if(el){
+      el.value = '';
+      el.classList.remove('has-error');
+    }
+  });
+
+  /* Fecha a hoy */
+  const f = document.getElementById('fecha_inspeccion');
+  if(f){
+    const hoy = new Date();
+    f.value = new Date(hoy.getTime() - hoy.getTimezoneOffset()*60000).toISOString().slice(0,10);
+    f.classList.remove('has-error');
+  }
+
+  /* Radios */
+  document.querySelectorAll('input[type="radio"]').forEach(function(r){ r.checked = false; });
+
+  /* Archivos */
+  document.querySelectorAll('input[type="file"]').forEach(function(inp){ inp.value = ''; });
+
+  /* Fotos */
+  Object.keys(PHOTOS).forEach(function(k){ PHOTOS[k] = []; });
+  SECCIONES.forEach(function(s){ renderPhotos(s.id); });
+
+  /* Firmas */
+  Object.keys(SIGNATURES).forEach(function(k){ SIGNATURES[k] = null; });
+  updateSignaturePreviews();
+
+  /* UI */
+  actualizar();
+  goTo(0, { scroll:true });
+}
+
+
+/* ==========================================================================
+   17. TOAST
    ========================================================================== */
 let toastTimer = null;
 function toast(msg){
@@ -1572,7 +2147,7 @@ function toast(msg){
 
 
 /* ==========================================================================
-   11. MARQUEE
+   18. MARQUEE
    ========================================================================== */
 (function marquee(){
   const msg = '  ▚  PROTOCOLO LOTO OBLIGATORIO  ·  SOLO PERSONAL CAPACITADO  ·  INSPECCIÓN VENT SET  ·  DEPARTAMENTO DE PROYECTOS  ·  v1.0 · AGOSTO 2026  ';
@@ -1582,45 +2157,150 @@ function toast(msg){
 
 
 /* ==========================================================================
-   12. ARRANQUE Y EVENTOS
+   19. ENVÍO COMPLETO (guardar historial + webhook + reset)
+   ========================================================================== */
+function handleSend(){
+  /* Validación básica: campos obligatorios */
+  if(!validateIdentificacion()){
+    goTo(0);
+    return;
+  }
+
+  const datos = recolectar();
+
+  /* 1. Guardar en historial local ANTES de enviar (backup) */
+  const record = {
+    ts: Date.now(),
+    fecha_inspeccion: datos.fecha_inspeccion,
+    ubicacion: datos.ubicacion,
+    id_tag: datos.id_tag,
+    inspector: datos.inspector,
+    resultado_clave: datos.resultado_clave,
+    resultado_final: datos.resultado_final,
+    total_criterios: datos.total_criterios,
+    total_ok: datos.total_ok,
+    total_nok: datos.total_nok,
+    total_pendientes: datos.total_pendientes,
+    cumplimiento_pct: datos.cumplimiento_pct,
+    criterios_nok: datos.criterios_nok,
+    criterios_pendientes: datos.criterios_pendientes,
+    deflexion_cm: datos.deflexion_cm,
+    amp_l1: datos.amp_l1,
+    amp_l2: datos.amp_l2,
+    amp_l3: datos.amp_l3,
+    amp_placa: datos.amp_placa,
+    amp_promedio: datos.amp_promedio,
+    amp_desbalance_pct: datos.amp_desbalance_pct,
+    total_fotos: datos.total_fotos,
+    hallazgo_principal: datos.hallazgo_principal,
+    accion_correctiva: datos.accion_correctiva,
+    recomendacion: datos.recomendacion,
+    firma_tecnico: datos.firma_tecnico,
+    firma_mantenimiento: datos.firma_mantenimiento,
+    firma_proyectos: datos.firma_proyectos,
+    firma_encargado: datos.firma_encargado,
+    sig_tecnico_img: datos.sig_tecnico_img,
+    sig_mantenimiento_img: datos.sig_mantenimiento_img,
+    sig_proyectos_img: datos.sig_proyectos_img,
+    sig_encargado_img: datos.sig_encargado_img
+  };
+
+  /* Copiamos también los estados de cada item */
+  Object.keys(datos).forEach(function(k){
+    if(k.indexOf('item_') === 0){ record[k] = datos[k]; }
+  });
+
+  const saved = addToHistory(record);
+  if(!saved) toast('Historial local lleno · depura registros');
+
+  /* 2. Enviar al webhook (no bloqueante) */
+  enviarWebhook(datos);
+
+  /* 3. Feedback */
+  toast('Inspección guardada · iniciando nuevo registro');
+
+  /* 4. Reset + volver al inicio */
+  setTimeout(function(){
+    resetForm();
+    updateHistoryCount();
+  }, 600);
+}
+
+
+/* ==========================================================================
+   20. ARRANQUE Y EVENTOS
    ========================================================================== */
 (function init(){
-  /* 1. Generar hojas 01–06 del check list */
+  /* 1. Hojas del checklist */
   renderChecklistSteps();
 
-  /* 2. Fecha de hoy por defecto */
+  /* 2. Fecha de hoy */
   const f = document.getElementById('fecha_inspeccion');
   if(f && !f.value){
     const hoy = new Date();
-    const iso = new Date(hoy.getTime() - hoy.getTimezoneOffset() * 60000).toISOString().slice(0,10);
-    f.value = iso;
+    f.value = new Date(hoy.getTime() - hoy.getTimezoneOffset()*60000).toISOString().slice(0,10);
   }
 
-  /* 3. Construir lista de hojas y navegación */
+  /* 3. Lista de hojas + navegación */
   buildStepList();
 
-  /* 4. Recalcular en cada interacción */
+  /* 4. Firmas */
+  bindSignatureControls();
+  updateSignaturePreviews();
+
+  /* 5. Listeners de recálculo */
   document.addEventListener('input', actualizar);
   document.addEventListener('change', actualizar);
 
-  /* 5. Navegación */
+  /* 6. Navegación */
   document.getElementById('btnPrev').addEventListener('click', prevStep);
   document.getElementById('btnNext').addEventListener('click', nextStep);
-  document.getElementById('btnEnviar').addEventListener('click', function(){
-    const datos = recolectar();
-    enviarWebhook(datos);          /* No bloqueante: sin await */
-    toast('Enviando inspección…');
+  document.getElementById('btnEnviar').addEventListener('click', handleSend);
+
+  /* 7. Exportaciones */
+  document.getElementById('btnPDF').addEventListener('click', exportPDF);
+  document.getElementById('btnXML').addEventListener('click', exportXML);
+
+  /* 8. Historial */
+  document.getElementById('btnHistory').addEventListener('click', openHistory);
+  document.getElementById('historyClear').addEventListener('click', function(){
+    if(!confirm('¿Borrar todo el historial local?')) return;
+    try { localStorage.removeItem(HISTORY_KEY); } catch(e){}
+    renderHistory();
+    updateHistoryCount();
+    toast('Historial borrado');
   });
 
-  /* 6. Atajos de teclado */
+  /* 9. Cierre de modales (overlay, botón ×, Escape) */
+  document.querySelectorAll('[data-close]').forEach(function(el){
+    el.addEventListener('click', function(){
+      const id = el.dataset.close;
+      if(id === 'signModal') closeSignatureModal();
+      if(id === 'historyModal') closeHistory();
+    });
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(!document.getElementById('signModal').hidden) closeSignatureModal();
+      if(!document.getElementById('historyModal').hidden) closeHistory();
+    }
+  });
+
+  /* 10. Atajos de flechas (solo fuera de inputs) */
   document.addEventListener('keydown', function(ev){
     const tag = (ev.target && ev.target.tagName) || '';
     if(tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-    if(ev.key === 'ArrowRight'){ nextStep(); }
-    if(ev.key === 'ArrowLeft'){ prevStep(); }
+    if(ev.target && ev.target.isContentEditable) return;
+    if(document.getElementById('signModal').hidden === false) return;
+    if(document.getElementById('historyModal').hidden === false) return;
+    if(ev.key === 'ArrowRight') nextStep();
+    if(ev.key === 'ArrowLeft')  prevStep();
   });
 
-  /* 7. Arrancar en la hoja 0 */
+  /* 11. Contador de historial */
+  updateHistoryCount();
+
+  /* 12. Arrancar */
   goTo(0, { scroll:false });
 })();
 </script>

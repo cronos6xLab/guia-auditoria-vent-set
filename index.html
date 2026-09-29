@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Auditoría Vent Set · Check List de Inspección</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,9 +22,6 @@
   --color-pure-white:#ffffff;
   --color-coral-pulse:#ff6363;
   --color-ember-hush:#452324;
-  --color-electric-sky:#63a1ff;
-  --color-cobalt-edge:#143ca3;
-  --color-deep-space:#02193b;
   --color-info-blue:#56c2ff;
   --color-success-green:#59d499;
 
@@ -33,7 +30,6 @@
   --font-inter:'Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
   --font-geistmono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
 
-  /* keyboard key shadow stack */
   --shadow-key:rgba(255,255,255,0.05) 0px 1px 0px 0px inset,
                rgba(255,255,255,0.25) 0px 0px 0px 1px,
                rgba(0,0,0,0.2) 0px -1px 0px 0px inset;
@@ -52,13 +48,14 @@
   --radius-circle:99999px;
 
   --page-max:1200px;
+  --dock-h:88px;
 }
 
 *,*::before,*::after{box-sizing:border-box;}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
 body{
   margin:0;
-  padding-bottom:120px;
+  padding-bottom:calc(var(--dock-h) + 40px + env(safe-area-inset-bottom));
   background:var(--color-void-black);
   color:var(--color-pure-white);
   font-family:var(--font-inter);
@@ -66,20 +63,58 @@ body{
   line-height:1.15;
   letter-spacing:0;
   -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
 
-/* ============ iOS: evitar zoom al enfocar ============ */
+/* ============================================================
+   iOS: evitar zoom y desbordes en campos de texto
+   ============================================================ */
 input,select,textarea,button{
   font-family:inherit;
-  font-size:16px;              /* >=16px evita el zoom automático de iOS */
+  font-size:16px;
   color:var(--color-pure-white);
 }
 input[type="number"]{-moz-appearance:textfield;}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
-input[type="date"]{color-scheme:dark;}
 
-/* ============ Marquee técnico ============ */
+/* --- FIX: input[type=date] se desbordaba en iOS --- */
+input[type="date"]{
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+  display:block;
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  min-height:48px;
+  padding:12px 14px;
+  line-height:1.35;
+  text-align:left;
+  font-family:var(--font-inter);
+  font-size:16px;
+  color-scheme:dark;
+  background-clip:padding-box;
+}
+input[type="date"]::-webkit-date-and-time-value{
+  text-align:left;
+  margin:0;
+  min-height:1.35em;
+}
+input[type="date"]::-webkit-datetime-edit{
+  padding:0;
+  min-width:0;
+  overflow:hidden;
+}
+input[type="date"]::-webkit-calendar-picker-indicator{
+  filter:invert(1);
+  opacity:.42;
+  cursor:pointer;
+  margin-left:6px;
+  padding:0;
+}
+
+/* ============ Marquee ============ */
 .marquee{
   background:var(--color-void-black);
   border-bottom:1px solid var(--border-hairline);
@@ -102,27 +137,27 @@ input[type="date"]{color-scheme:dark;}
 
 /* ============ Nav flotante glass ============ */
 .nav{
-  position:sticky;top:12px;z-index:50;
-  padding:0 16px;
-  margin-top:12px;
+  position:sticky;top:0;z-index:50;
+  padding:12px 16px 0;
+  background:linear-gradient(to bottom,var(--color-void-black) 65%,transparent);
 }
 .nav__inner{
   max-width:var(--page-max);
   margin:0 auto;
   display:flex;
   align-items:center;
-  gap:16px;
+  gap:12px;
   flex-wrap:wrap;
-  padding:8px 16px;
+  padding:8px 14px;
   border:1px solid var(--border-hairline);
   border-radius:var(--radius-btn);
-  background:rgba(4,5,6,0.55);
+  background:rgba(4,5,6,0.62);
   backdrop-filter:blur(48px);
   -webkit-backdrop-filter:blur(48px);
 }
 .logo{
   display:flex;align-items:center;gap:8px;
-  font-weight:500;font-size:13px;letter-spacing:0;
+  font-weight:500;font-size:13px;
   color:var(--color-pure-white);
   flex:0 0 auto;
 }
@@ -133,32 +168,50 @@ input[type="date"]{color-scheme:dark;}
   border-radius:3px;
   box-shadow:0 0 12px rgba(255,99,99,0.45);
 }
-.nav__pills{display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
-.ghost-link{
-  color:var(--color-ash);
-  text-decoration:none;
-  font-weight:500;
-  font-size:13px;
-  letter-spacing:0.008em;
-  transition:color .15s ease;
+.nav__step{
+  font-family:var(--font-geistmono);
+  font-size:11px;
+  font-weight:400;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--color-smoke);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:100%;
 }
-.ghost-link:hover{color:var(--color-pure-white);}
+.nav__step b{color:var(--color-mist);font-weight:500;}
 .nav__live{
   margin-left:auto;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
   font-family:var(--font-geistmono);
-  font-size:12px;
-  font-weight:400;
-  letter-spacing:0.017em;
-  color:var(--color-ash);
+  font-size:11px;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--color-smoke);
   white-space:nowrap;
 }
-.nav__live b{color:var(--color-pure-white);font-weight:500;}
+.nav__live span{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+}
+.nav__live span::before{
+  content:"";
+  width:5px;height:5px;
+  border-radius:var(--radius-circle);
+  background:currentColor;
+}
+.nav__live .is-ok{color:var(--color-success-green);}
+.nav__live .is-nok{color:var(--color-coral-pulse);}
 
-/* ============ Hero atmosférico ============ */
+/* ============ Hero ============ */
 .hero{
   position:relative;
   overflow:hidden;
-  padding:80px 16px 96px;
+  padding:56px 16px 72px;
   background:var(--color-void-black);
 }
 .hero__wash{
@@ -177,18 +230,13 @@ input[type="date"]{color-scheme:dark;}
   position:absolute;
   background:var(--color-coral-pulse);
   filter:blur(40px);
-  opacity:.55;
+  opacity:.5;
   pointer-events:none;
   z-index:0;
 }
-.hero__bar--a{width:120%;height:56px;top:34%;left:-10%;transform:rotate(-14deg);}
-.hero__bar--b{width:80%;height:34px;top:20%;right:-8%;transform:rotate(9deg);opacity:.35;}
-.hero__inner{
-  position:relative;
-  z-index:2;
-  max-width:var(--page-max);
-  margin:0 auto;
-}
+.hero__bar--a{width:120%;height:52px;top:34%;left:-10%;transform:rotate(-14deg);}
+.hero__bar--b{width:80%;height:32px;top:20%;right:-8%;transform:rotate(9deg);opacity:.32;}
+.hero__inner{position:relative;z-index:2;max-width:var(--page-max);margin:0 auto;}
 .eyebrow{
   margin:0 0 20px;
   font-family:var(--font-geistmono);
@@ -200,7 +248,7 @@ input[type="date"]{color-scheme:dark;}
 }
 .display{
   font-weight:400;
-  font-size:clamp(40px,7.6vw,64px);
+  font-size:clamp(34px,7.6vw,64px);
   line-height:1.1;
   letter-spacing:0;
   margin:0 0 20px;
@@ -216,7 +264,7 @@ input[type="date"]{color-scheme:dark;}
   margin:0 0 28px;
 }
 .warn{
-  display:inline-flex;
+  display:flex;
   gap:12px;
   align-items:flex-start;
   max-width:70ch;
@@ -247,62 +295,70 @@ input[type="date"]{color-scheme:dark;}
   color:var(--color-smoke);
 }
 
-/* ============ Secciones ============ */
-.band{
-  padding:80px 16px;
-  border-top:1px solid var(--border-hairline);
+/* ============================================================
+   STEP (hoja)
+   ============================================================ */
+.step{
+  padding:40px 16px 56px;
   background:var(--color-void-black);
+  border-top:1px solid var(--border-hairline);
+  animation:sheetIn .28s ease both;
 }
-.band--ink{background:var(--color-ink);}
-.band--tint{background:var(--color-void-black);}
-.wrap{max-width:var(--page-max);margin:0 auto;}
+.step[hidden]{display:none;}
+@keyframes sheetIn{
+  from{opacity:0;transform:translateY(10px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@media (prefers-reduced-motion:reduce){
+  .step{animation:none;}
+}
+.wrap{max-width:var(--page-max);margin:0 auto;width:100%;min-width:0;}
 
-.sec-head{
+.step-head{
   display:flex;
   align-items:center;
   gap:16px;
-  margin-bottom:32px;
+  margin-bottom:28px;
   flex-wrap:wrap;
 }
 .sec-num{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-width:36px;height:36px;
-  padding:0 10px;
+  min-width:44px;height:44px;
+  padding:0 12px;
   border:1px solid var(--border-hairline);
   border-radius:var(--radius-badge);
   background:var(--color-graphite);
   font-family:var(--font-geistmono);
   font-weight:500;
-  font-size:12px;
+  font-size:13px;
   letter-spacing:0.017em;
-  color:var(--color-ash);
+  color:var(--color-mist);
+  flex:0 0 auto;
 }
 .sec-title{
   margin:0;
   font-weight:400;
-  font-size:clamp(24px,3.4vw,32px);
+  font-size:clamp(24px,3.6vw,32px);
   line-height:1.15;
   letter-spacing:0;
   color:var(--color-pure-white);
+  min-width:0;
 }
 
-/* ============ Card (keyboard key treatment) ============ */
+/* ============ Card ============ */
 .card{
   background:var(--color-ink);
   border-radius:var(--radius-card);
   padding:8px 24px;
   box-shadow:var(--shadow-key);
+  width:100%;
+  min-width:0;
 }
 .card--lg{border-radius:var(--radius-card-lg);}
-.card--flat{
-  background:var(--color-ink);
-  border:1px solid var(--border-hairline);
-  box-shadow:none;
-}
 
-/* ============ Ítems del check list ============ */
+/* ============ Ítems ============ */
 .item{
   display:flex;
   gap:24px;
@@ -313,7 +369,7 @@ input[type="date"]{color-scheme:dark;}
   border-bottom:1px solid rgba(255,255,255,0.06);
 }
 .item:last-child{border-bottom:none;}
-.item-txt{flex:1 1 340px;min-width:0;}
+.item-txt{flex:1 1 280px;min-width:0;}
 .item-title{
   margin:0 0 8px;
   font-weight:500;
@@ -332,7 +388,6 @@ input[type="date"]{color-scheme:dark;}
 }
 .pills{display:flex;gap:8px;flex:0 0 auto;}
 
-/* Pills OK / NOK — botones neutrales estilo Raycast */
 .pill{
   position:relative;
   display:inline-flex;
@@ -362,20 +417,10 @@ input[type="date"]{color-scheme:dark;}
   pointer-events:none;
   transition:color .15s ease,background .15s ease;
 }
-.pill--ok input:checked + span{
-  background:var(--color-mist);
-  color:var(--color-iron);
-}
-.pill--nok input:checked + span{
-  background:var(--color-coral-pulse);
-  color:var(--color-void-black);
-}
-.pill input:focus-visible + span{
-  outline:1px solid var(--color-coral-pulse);
-  outline-offset:-3px;
-}
+.pill--ok input:checked + span{background:var(--color-mist);color:var(--color-iron);}
+.pill--nok input:checked + span{background:var(--color-coral-pulse);color:var(--color-void-black);}
+.pill input:focus-visible + span{outline:1px solid var(--color-coral-pulse);outline-offset:-3px;}
 
-/* Badges */
 .tag{
   display:inline-block;
   vertical-align:middle;
@@ -388,15 +433,8 @@ input[type="date"]{color-scheme:dark;}
   text-transform:uppercase;
   margin-left:8px;
 }
-.tag--crit{
-  background:var(--color-ember-hush);
-  color:var(--color-coral-pulse);
-  border:1px solid rgba(255,99,99,0.25);
-}
-.tag--auto{
-  background:var(--color-graphite);
-  color:var(--color-ash);
-}
+.tag--crit{background:var(--color-ember-hush);color:var(--color-coral-pulse);border:1px solid rgba(255,99,99,0.25);}
+.tag--auto{background:var(--color-graphite);color:var(--color-ash);}
 
 /* ============ Filas auto ============ */
 .item--auto{
@@ -432,23 +470,10 @@ input[type="date"]{color-scheme:dark;}
   color:var(--color-smoke);
   white-space:nowrap;
 }
-.auto-res::before{
-  content:"";
-  width:8px;height:8px;
-  border-radius:var(--radius-circle);
-  background:var(--color-smoke);
-}
-.auto-res[data-estado="OK"]{
-  color:var(--color-success-green);
-  border-color:rgba(89,212,153,0.3);
-  background:rgba(89,212,153,0.08);
-}
+.auto-res::before{content:"";width:8px;height:8px;border-radius:var(--radius-circle);background:var(--color-smoke);}
+.auto-res[data-estado="OK"]{color:var(--color-success-green);border-color:rgba(89,212,153,0.3);background:rgba(89,212,153,0.08);}
 .auto-res[data-estado="OK"]::before{background:var(--color-success-green);}
-.auto-res[data-estado="NOK"]{
-  color:var(--color-coral-pulse);
-  border-color:rgba(255,99,99,0.3);
-  background:var(--color-ember-hush);
-}
+.auto-res[data-estado="NOK"]{color:var(--color-coral-pulse);border-color:rgba(255,99,99,0.3);background:var(--color-ember-hush);}
 .auto-res[data-estado="NOK"]::before{background:var(--color-coral-pulse);}
 
 /* ============ Widgets ============ */
@@ -477,11 +502,31 @@ input[type="date"]{color-scheme:dark;}
   letter-spacing:0.017em;
   color:var(--color-smoke);
 }
-.grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;}
-.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;}
+
+/* ============================================================
+   Grids — min() evita desbordes en pantallas angostas
+   ============================================================ */
+.grid-4{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(160px,100%),1fr));
+  gap:16px;
+}
+.grid-2{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));
+  gap:16px;
+}
+.grid-4 > *,
+.grid-2 > *{min-width:0;}
 
 /* ============ Campos ============ */
-.field{display:flex;flex-direction:column;gap:8px;}
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  min-width:0;
+  width:100%;
+}
 .field-label{
   font-weight:500;
   font-size:11px;
@@ -489,10 +534,14 @@ input[type="date"]{color-scheme:dark;}
   text-transform:uppercase;
   color:var(--color-ash);
   font-family:var(--font-geistmono);
+  word-break:break-word;
 }
 .field input,
 .field textarea{
+  display:block;
   width:100%;
+  max-width:100%;
+  min-width:0;
   border:1px solid var(--border-hairline);
   border-radius:var(--radius-input);
   background:rgba(255,255,255,0.05);
@@ -523,7 +572,7 @@ input[type="date"]{color-scheme:dark;}
 /* ============ Resultado ============ */
 .verdict-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
   gap:16px;
   margin-top:8px;
 }
@@ -537,18 +586,9 @@ input[type="date"]{color-scheme:dark;}
   box-shadow:var(--shadow-key);
 }
 .verdict-card.is-active{opacity:1;}
-.verdict-card[data-clave="APROBADO"].is-active{
-  background:rgba(89,212,153,0.08);
-  border-color:rgba(89,212,153,0.35);
-}
-.verdict-card[data-clave="CON OBSERVACIONES"].is-active{
-  background:rgba(86,194,255,0.06);
-  border-color:rgba(86,194,255,0.3);
-}
-.verdict-card[data-clave="REPROBADO"].is-active{
-  background:var(--color-ember-hush);
-  border-color:rgba(255,99,99,0.4);
-}
+.verdict-card[data-clave="APROBADO"].is-active{background:rgba(89,212,153,0.08);border-color:rgba(89,212,153,0.35);}
+.verdict-card[data-clave="CON OBSERVACIONES"].is-active{background:rgba(86,194,255,0.06);border-color:rgba(86,194,255,0.3);}
+.verdict-card[data-clave="REPROBADO"].is-active{background:var(--color-ember-hush);border-color:rgba(255,99,99,0.4);}
 .verdict-name{
   margin:0 0 8px;
   font-weight:500;
@@ -560,92 +600,88 @@ input[type="date"]{color-scheme:dark;}
 .verdict-card[data-clave="APROBADO"].is-active .verdict-name{color:var(--color-success-green);}
 .verdict-card[data-clave="CON OBSERVACIONES"].is-active .verdict-name{color:var(--color-info-blue);}
 .verdict-card[data-clave="REPROBADO"].is-active .verdict-name{color:var(--color-coral-pulse);}
-.verdict-desc{
-  margin:0;
-  font-size:14px;
-  font-weight:400;
-  line-height:1.5;
-  color:var(--color-smoke);
-}
+.verdict-desc{margin:0;font-size:14px;font-weight:400;line-height:1.5;color:var(--color-smoke);}
 
 /* ============ Firmas ============ */
-.sign-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;}
+.sign-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:16px;
+}
 
-/* ============ Dock inferior ============ */
+/* ============ Footer meta ============ */
+.footer-meta{
+  text-align:center;
+  font-family:var(--font-geistmono);
+  font-size:12px;
+  letter-spacing:0.017em;
+  color:var(--color-smoke);
+  padding:24px 16px 32px;
+  border-top:1px solid var(--border-hairline);
+}
+
+/* ============================================================
+   DOCK — navegación entre hojas
+   ============================================================ */
 .dock{
   position:fixed;
   left:0;right:0;bottom:0;
   z-index:60;
-  background:rgba(4,5,6,0.86);
+  background:rgba(4,5,6,0.9);
   backdrop-filter:blur(48px);
   -webkit-backdrop-filter:blur(48px);
   border-top:1px solid var(--border-hairline);
   padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+}
+.dock__inner{
+  max-width:var(--page-max);
+  margin:0 auto;
   display:flex;
   align-items:center;
   gap:12px;
   flex-wrap:wrap;
 }
-.dock__stats{display:flex;gap:8px;flex-wrap:wrap;}
-.chip{
-  display:inline-flex;
+.dock__center{
+  flex:1 1 180px;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
   align-items:center;
-  gap:6px;
-  border:1px solid var(--border-hairline);
-  border-radius:var(--radius-badge);
-  background:var(--color-obsidian);
-  padding:7px 12px;
+  gap:8px;
+}
+.dock__label{
   font-family:var(--font-geistmono);
-  font-weight:500;
-  font-size:12px;
-  letter-spacing:0.017em;
+  font-size:11px;
+  font-weight:400;
+  letter-spacing:0.05em;
   text-transform:uppercase;
-  color:var(--color-ash);
+  color:var(--color-smoke);
   white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:100%;
 }
-.chip b{color:var(--color-pure-white);font-weight:500;}
-.chip::before{
-  content:"";
-  width:6px;height:6px;
-  border-radius:var(--radius-circle);
-  background:var(--color-smoke);
-}
-.chip--ok{color:var(--color-success-green);border-color:rgba(89,212,153,0.3);}
-.chip--ok b{color:var(--color-success-green);}
-.chip--ok::before{background:var(--color-success-green);}
-.chip--nok{color:var(--color-coral-pulse);border-color:rgba(255,99,99,0.3);}
-.chip--nok b{color:var(--color-coral-pulse);}
-.chip--nok::before{background:var(--color-coral-pulse);}
+.dock__label b{color:var(--color-mist);font-weight:500;}
 
-.dock__verdict{
-  margin-left:auto;
-  border:1px solid var(--border-hairline);
-  border-radius:var(--radius-badge);
-  background:var(--color-graphite);
-  padding:7px 14px;
-  font-family:var(--font-geistmono);
-  font-weight:500;
-  font-size:12px;
-  letter-spacing:0.017em;
-  text-transform:uppercase;
-  color:var(--color-ash);
-  white-space:nowrap;
+.dots{display:flex;gap:5px;align-items:center;flex-wrap:nowrap;}
+.dot{
+  width:8px;height:8px;
+  border:none;
+  padding:0;
+  border-radius:var(--radius-circle);
+  background:var(--color-slate);
+  cursor:pointer;
+  transition:background .2s ease,width .2s ease;
+  flex:0 0 auto;
 }
-.dock__verdict[data-clave="APROBADO"]{
-  background:rgba(89,212,153,0.12);
-  border-color:rgba(89,212,153,0.35);
-  color:var(--color-success-green);
+.dot:hover{background:var(--color-iron);}
+.dot.is-done{background:var(--color-smoke);}
+.dot.is-current{
+  width:22px;
+  border-radius:var(--radius-pill);
+  background:var(--color-coral-pulse);
 }
-.dock__verdict[data-clave="CON OBSERVACIONES"]{
-  background:rgba(86,194,255,0.1);
-  border-color:rgba(86,194,255,0.3);
-  color:var(--color-info-blue);
-}
-.dock__verdict[data-clave="REPROBADO"]{
-  background:var(--color-ember-hush);
-  border-color:rgba(255,99,99,0.4);
-  color:var(--color-coral-pulse);
-}
+.dot:focus-visible{outline:2px solid var(--color-mist);outline-offset:2px;}
 
 /* ============ Botones ============ */
 .btn{
@@ -657,27 +693,33 @@ input[type="date"]{color-scheme:dark;}
   letter-spacing:0.014em;
   cursor:pointer;
   white-space:nowrap;
-  transition:background .15s ease,border-color .15s ease,transform .15s ease,color .15s ease;
+  transition:background .15s ease,border-color .15s ease,transform .15s ease,color .15s ease,opacity .15s ease;
+  flex:0 0 auto;
 }
 .btn:active{transform:scale(.98);}
+.btn:disabled{opacity:.32;cursor:not-allowed;transform:none;}
 .btn--cta{
   background:var(--color-mist);
   color:var(--color-iron);
   border-color:var(--color-mist);
   box-shadow:var(--shadow-lift);
 }
-.btn--cta:hover{background:var(--color-pure-white);border-color:var(--color-pure-white);}
-.btn--ghost{
-  background:transparent;
-  color:var(--color-mist);
+.btn--cta:hover:not(:disabled){background:var(--color-pure-white);border-color:var(--color-pure-white);}
+.btn--ghost{background:transparent;color:var(--color-mist);}
+.btn--ghost:hover:not(:disabled){background:var(--color-obsidian);border-color:var(--color-slate);}
+.btn--send{
+  background:var(--color-coral-pulse);
+  color:var(--color-void-black);
+  border-color:var(--color-coral-pulse);
+  box-shadow:0 0 20px rgba(255,99,99,0.28);
 }
-.btn--ghost:hover{background:var(--color-obsidian);border-color:var(--color-slate);}
+.btn--send:hover:not(:disabled){background:#ff7b7b;border-color:#ff7b7b;}
 
 /* ============ Toast ============ */
 .toast{
   position:fixed;
   left:50%;
-  bottom:104px;
+  bottom:calc(var(--dock-h) + 20px);
   transform:translate(-50%,16px);
   z-index:80;
   background:var(--color-ink);
@@ -709,23 +751,22 @@ input[type="date"]{color-scheme:dark;}
 }
 .helper strong{color:var(--color-mist);font-weight:500;}
 
-/* ============ Divisores ============ */
-.divider{
-  border:none;
-  border-top:1px solid var(--border-hairline);
-  margin:32px 0;
+/* ============ Responsive ============ */
+@media (max-width:560px){
+  :root{--dock-h:96px;}
+  .hero{padding:40px 16px 56px;}
+  .step{padding:32px 16px 48px;}
+  .card{padding:4px 16px;}
+  .item{padding:20px 0;gap:16px;}
+  .item--auto{margin:0 -16px;padding-left:16px;padding-right:16px;}
+  .widget{padding:16px;}
+  .pills{width:100%;}
+  .pill{flex:1 1 0;}
+  .pill span{text-align:center;width:100%;}
+  .dock__inner{gap:8px;}
+  .btn{padding:12px 16px;font-size:12px;}
+  .nav__live{display:none;}
 }
-
-/* ============ Footer meta ============ */
-.footer-meta{
-  text-align:center;
-  font-family:var(--font-geistmono);
-  font-size:12px;
-  letter-spacing:0.017em;
-  color:var(--color-smoke);
-  padding:40px 16px 24px;
-}
-.footer-meta span{margin:0 8px;}
 </style>
 </head>
 <body>
@@ -742,18 +783,18 @@ input[type="date"]{color-scheme:dark;}
       <span class="logo__diamond" aria-hidden="true"></span>
       <span>Vent Set</span>
     </div>
-    <nav class="nav__pills">
-      <a class="ghost-link" href="#identificacion">Datos</a>
-      <a class="ghost-link" href="#secciones">Check list</a>
-      <a class="ghost-link" href="#resultado">Resultado</a>
-      <a class="ghost-link" href="#cierre">Cierre</a>
-    </nav>
-    <div class="nav__live" id="navLive"><b>0</b> / 0 verificados</div>
+    <div class="nav__step" id="navStep"><b>Paso 1</b> / 10</div>
+    <div class="nav__live" id="navLive">
+      <span class="is-ok"><b id="navOk">0</b> OK</span>
+      <span class="is-nok"><b id="navNok">0</b> NOK</span>
+    </div>
   </div>
 </header>
 
-<!-- ================= HERO ================= -->
-<section class="hero">
+<main>
+
+<!-- ================= HERO (solo hoja 1) ================= -->
+<section class="hero" id="hero">
   <div class="hero__wash" aria-hidden="true"></div>
   <div class="hero__bar hero__bar--a" aria-hidden="true"></div>
   <div class="hero__bar hero__bar--b" aria-hidden="true"></div>
@@ -777,172 +818,182 @@ input[type="date"]{color-scheme:dark;}
   </div>
 </section>
 
-<!-- ================= IDENTIFICACIÓN ================= -->
-<section class="band" id="identificacion">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="sec-num">00</span>
-      <h2 class="sec-title">Identificación</h2>
-    </div>
-    <div class="card card--lg">
-      <div style="padding:16px 0;">
-        <div class="grid-4">
-          <label class="field">
-            <span class="field-label">Fecha de inspección</span>
-            <input type="date" id="fecha_inspeccion">
-          </label>
-          <label class="field">
-            <span class="field-label">Ubicación / restaurante</span>
-            <input type="text" id="ubicacion" placeholder="Sucursal Centro" autocomplete="off">
-          </label>
-          <label class="field">
-            <span class="field-label">ID / Tag del equipo</span>
-            <input type="text" id="id_tag" placeholder="VS-001" autocomplete="off">
-          </label>
-          <label class="field">
-            <span class="field-label">Inspector responsable</span>
-            <input type="text" id="inspector" placeholder="Nombre completo" autocomplete="off">
-          </label>
+<!-- ================= HOJAS ================= -->
+<div id="steps">
+
+  <!-- ---- HOJA 00 · IDENTIFICACIÓN ---- -->
+  <section class="step" id="step-identificacion" data-step-title="Identificación">
+    <div class="wrap">
+      <div class="step-head">
+        <span class="sec-num">00</span>
+        <h2 class="sec-title">Identificación</h2>
+      </div>
+      <div class="card card--lg">
+        <div style="padding:16px 0;">
+          <div class="grid-4">
+            <label class="field">
+              <span class="field-label">Fecha de inspección</span>
+              <input type="date" id="fecha_inspeccion">
+            </label>
+            <label class="field">
+              <span class="field-label">Ubicación / restaurante</span>
+              <input type="text" id="ubicacion" placeholder="Sucursal Centro" autocomplete="off">
+            </label>
+            <label class="field">
+              <span class="field-label">ID / Tag del equipo</span>
+              <input type="text" id="id_tag" placeholder="VS-001" autocomplete="off">
+            </label>
+            <label class="field">
+              <span class="field-label">Inspector responsable</span>
+              <input type="text" id="inspector" placeholder="Nombre completo" autocomplete="off">
+            </label>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ================= SECCIONES GENERADAS ================= -->
-<div id="secciones"></div>
+  <!-- ---- HOJAS 01–06 · CHECK LIST (generadas por JS) ---- -->
+  <div id="checklistSteps"></div>
 
-<!-- ================= RESULTADO FINAL ================= -->
-<section class="band" id="resultado">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="sec-num">✓</span>
-      <h2 class="sec-title">Resultado final</h2>
+  <!-- ---- HOJA · RESULTADO FINAL ---- -->
+  <section class="step" id="step-resultado" data-step-title="Resultado final">
+    <div class="wrap">
+      <div class="step-head">
+        <span class="sec-num">✓</span>
+        <h2 class="sec-title">Resultado final</h2>
+      </div>
+
+      <div class="card card--lg" style="margin-bottom:24px;">
+        <div style="padding:16px 0;">
+          <div class="grid-4">
+            <label class="field">
+              <span class="field-label">Total de criterios</span>
+              <input type="text" id="sum_total" value="0" readonly>
+            </label>
+            <label class="field">
+              <span class="field-label">Criterios OK</span>
+              <input type="text" id="sum_ok" value="0" readonly>
+            </label>
+            <label class="field">
+              <span class="field-label">Criterios NOK</span>
+              <input type="text" id="sum_nok" value="0" readonly>
+            </label>
+            <label class="field">
+              <span class="field-label">% Cumplimiento</span>
+              <input type="text" id="sum_pct" value="0%" readonly>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="verdict-grid">
+        <div class="verdict-card" data-clave="APROBADO">
+          <p class="verdict-name">Aprobado</p>
+          <p class="verdict-desc">Equipo en condiciones óptimas.</p>
+        </div>
+        <div class="verdict-card" data-clave="CON OBSERVACIONES">
+          <p class="verdict-name">Con observaciones</p>
+          <p class="verdict-desc">Requiere seguimiento en la próxima visita.</p>
+        </div>
+        <div class="verdict-card" data-clave="REPROBADO">
+          <p class="verdict-name">Reprobado</p>
+          <p class="verdict-desc">Requiere intervención inmediata.</p>
+        </div>
+      </div>
+
+      <p class="helper" id="verdictHelper">
+        El veredicto se calcula automáticamente: cualquier criterio marcado como <strong>CRÍTICO</strong>
+        en NOK, o más de 3 criterios NOK, reprochan el equipo de inmediato.
+      </p>
     </div>
+  </section>
 
-    <div class="card card--lg" style="margin-bottom:24px;">
-      <div style="padding:16px 0;">
-        <div class="grid-4">
-          <label class="field">
-            <span class="field-label">Total de criterios</span>
-            <input type="text" id="sum_total" value="0" readonly>
-          </label>
-          <label class="field">
-            <span class="field-label">Criterios OK</span>
-            <input type="text" id="sum_ok" value="0" readonly>
-          </label>
-          <label class="field">
-            <span class="field-label">Criterios NOK</span>
-            <input type="text" id="sum_nok" value="0" readonly>
-          </label>
-          <label class="field">
-            <span class="field-label">% Cumplimiento</span>
-            <input type="text" id="sum_pct" value="0%" readonly>
-          </label>
+  <!-- ---- HOJA · OBSERVACIONES ---- -->
+  <section class="step" id="step-observaciones" data-step-title="Observaciones y hallazgos">
+    <div class="wrap">
+      <div class="step-head">
+        <span class="sec-num">✎</span>
+        <h2 class="sec-title">Observaciones y hallazgos</h2>
+      </div>
+      <div class="card card--lg">
+        <div style="padding:16px 0;">
+          <p class="helper" style="margin-top:0;">
+            Esta sección será revisada por el Departamento de Mantenimiento para ejecutar las acciones
+            correctivas correspondientes conforme a los hallazgos de esta inspección.
+          </p>
+          <div class="grid-2" style="margin-top:24px;">
+            <label class="field">
+              <span class="field-label">Hallazgo / observación principal</span>
+              <textarea id="hallazgo_principal" placeholder="Describe el hallazgo con el mayor detalle posible…"></textarea>
+            </label>
+            <label class="field">
+              <span class="field-label">Acción correctiva inmediata</span>
+              <textarea id="accion_correctiva" placeholder="Acción ejecutada o requerida en sitio…"></textarea>
+            </label>
+            <label class="field">
+              <span class="field-label">Recomendación para próxima visita</span>
+              <textarea id="recomendacion" placeholder="Seguimiento sugerido…"></textarea>
+            </label>
+          </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="verdict-grid">
-      <div class="verdict-card" data-clave="APROBADO">
-        <p class="verdict-name">Aprobado</p>
-        <p class="verdict-desc">Equipo en condiciones óptimas.</p>
+  <!-- ---- HOJA · CIERRE Y FIRMAS ---- -->
+  <section class="step" id="step-cierre" data-step-title="Cierre y firmas">
+    <div class="wrap">
+      <div class="step-head">
+        <span class="sec-num">✍</span>
+        <h2 class="sec-title">Cierre y firmas</h2>
       </div>
-      <div class="verdict-card" data-clave="CON OBSERVACIONES">
-        <p class="verdict-name">Con observaciones</p>
-        <p class="verdict-desc">Requiere seguimiento en la próxima visita.</p>
-      </div>
-      <div class="verdict-card" data-clave="REPROBADO">
-        <p class="verdict-name">Reprobado</p>
-        <p class="verdict-desc">Requiere intervención inmediata.</p>
-      </div>
-    </div>
-
-    <p class="helper" id="verdictHelper">
-      El veredicto se calcula automáticamente: cualquier criterio marcado como <strong>CRÍTICO</strong>
-      en NOK, o más de 3 criterios NOK, reprochan el equipo de inmediato.
-    </p>
-  </div>
-</section>
-
-<!-- ================= OBSERVACIONES ================= -->
-<section class="band band--ink" id="observaciones">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="sec-num">✎</span>
-      <h2 class="sec-title">Observaciones y hallazgos</h2>
-    </div>
-    <div class="card card--lg">
-      <div style="padding:16px 0;">
-        <p class="helper" style="margin-top:0;">
-          Esta sección será revisada por el Departamento de Mantenimiento para ejecutar las acciones
-          correctivas correspondientes conforme a los hallazgos de esta inspección.
-        </p>
-        <div class="grid-2" style="margin-top:24px;">
-          <label class="field">
-            <span class="field-label">Hallazgo / observación principal</span>
-            <textarea id="hallazgo_principal" placeholder="Describe el hallazgo con el mayor detalle posible…"></textarea>
-          </label>
-          <label class="field">
-            <span class="field-label">Acción correctiva inmediata</span>
-            <textarea id="accion_correctiva" placeholder="Acción ejecutada o requerida en sitio…"></textarea>
-          </label>
-          <label class="field">
-            <span class="field-label">Recomendación para próxima visita</span>
-            <textarea id="recomendacion" placeholder="Seguimiento sugerido…"></textarea>
-          </label>
+      <div class="card card--lg">
+        <div style="padding:16px 0;">
+          <div class="sign-grid">
+            <label class="field">
+              <span class="field-label">Elaboró · Técnico inspector</span>
+              <input type="text" id="firma_tecnico" placeholder="Nombre y firma" autocomplete="off">
+            </label>
+            <label class="field">
+              <span class="field-label">Revisó · Depto. Mantenimiento</span>
+              <input type="text" id="firma_mantenimiento" placeholder="Nombre y firma" autocomplete="off">
+            </label>
+            <label class="field">
+              <span class="field-label">Autorizó · Depto. Proyectos</span>
+              <input type="text" id="firma_proyectos" placeholder="Nombre y firma" autocomplete="off">
+            </label>
+            <label class="field">
+              <span class="field-label">Encargado de sucursal</span>
+              <input type="text" id="firma_encargado" placeholder="Nombre y firma" autocomplete="off">
+            </label>
+          </div>
+          <p class="helper" id="cierreHelper"></p>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ================= CIERRE / FIRMAS ================= -->
-<section class="band" id="cierre">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="sec-num">✍</span>
-      <h2 class="sec-title">Cierre y firmas</h2>
-    </div>
-    <div class="card card--lg">
-      <div style="padding:16px 0;">
-        <div class="sign-grid">
-          <label class="field">
-            <span class="field-label">Elaboró · Técnico inspector</span>
-            <input type="text" id="firma_tecnico" placeholder="Nombre y firma" autocomplete="off">
-          </label>
-          <label class="field">
-            <span class="field-label">Revisó · Depto. Mantenimiento</span>
-            <input type="text" id="firma_mantenimiento" placeholder="Nombre y firma" autocomplete="off">
-          </label>
-          <label class="field">
-            <span class="field-label">Autorizó · Depto. Proyectos</span>
-            <input type="text" id="firma_proyectos" placeholder="Nombre y firma" autocomplete="off">
-          </label>
-          <label class="field">
-            <span class="field-label">Encargado de sucursal</span>
-            <input type="text" id="firma_encargado" placeholder="Nombre y firma" autocomplete="off">
-          </label>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+</div>
 
 <!-- ================= FOOTER META ================= -->
 <footer class="footer-meta">
   <span>v1.0.0</span>|<span>Vent Set Audit</span>|<span>Departamento de Proyectos</span>|<span>Agosto 2026</span>
 </footer>
 
+</main>
+
 <!-- ================= DOCK ================= -->
 <div class="dock">
-  <div class="dock__stats">
-    <span class="chip chip--ok"><b id="dock-ok">0</b> OK</span>
-    <span class="chip chip--nok"><b id="dock-nok">0</b> NOK</span>
-    <span class="chip"><b id="dock-pend">0</b> pend.</span>
+  <div class="dock__inner">
+    <button type="button" class="btn btn--ghost" id="btnPrev">← Atrás</button>
+    <div class="dock__center">
+      <div class="dock__label" id="dockLabel"><b>Paso 1</b> · Identificación</div>
+      <div class="dots" id="dots" role="tablist" aria-label="Navegación de hojas"></div>
+    </div>
+    <button type="button" class="btn btn--cta" id="btnNext">Siguiente →</button>
+    <button type="button" class="btn btn--send" id="btnEnviar" hidden>Enviar inspección</button>
   </div>
-  <div class="dock__verdict" id="dockVerdict" data-clave="INCOMPLETO">Incompleto</div>
-  <button type="button" class="btn btn--cta" id="btnEnviar">Enviar inspección</button>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -955,7 +1006,7 @@ input[type="date"]{color-scheme:dark;}
    Flujo en Make:  Custom webhook  →  Google Sheets · "Add a Row"
    Después de la primera petición real, pulsa "Redetermine data structure".
    ========================================================================== */
-const WEBHOOK_URL = 'https://hook.us1.make.com/REEMPLAZA-ESTA-URL-CON-TU-CUSTOM-WEBHOOK';
+const WEBHOOK_URL = 'https://hook.us2.make.com/q3mtnkujw5hw7dfrbf9satjwqtus17dn';
 
 
 /* ==========================================================================
@@ -994,7 +1045,7 @@ const SECCIONES = [
   },
   {
     id:'s3', num:'03',
-    titulo:'Diagnóstico y ajuste mecánico (bandas y poleas)',
+    titulo:'Bandas y poleas',
     items:[
       { id:'s3_1', tipo:'check',
         t:'Correas sin grietas, deshilachados ni hundimiento excesivo.',
@@ -1009,7 +1060,7 @@ const SECCIONES = [
   },
   {
     id:'s4', num:'04',
-    titulo:'Rodamientos y lubricación (chumaceras)',
+    titulo:'Rodamientos y lubricación',
     items:[
       { id:'s4_1', tipo:'check',
         t:'Grasa fresca visible en sellos.',
@@ -1024,7 +1075,7 @@ const SECCIONES = [
   },
   {
     id:'s5', num:'05',
-    titulo:'Motor eléctrico y diagnóstico digital (prueba energizada)',
+    titulo:'Motor eléctrico y diagnóstico digital',
     items:[
       { id:'s5_1', tipo:'check',
         t:'Giro manual previo sin fricción.',
@@ -1045,7 +1096,7 @@ const SECCIONES = [
   },
   {
     id:'s6', num:'06',
-    titulo:'Cierre y reensamblaje del equipo',
+    titulo:'Cierre y reensamblaje',
     items:[
       { id:'s6_1', tipo:'check',
         t:'Guarda de bandas reinstalada y apretada correctamente con herramientas.',
@@ -1119,7 +1170,7 @@ const CALCS = {
 
 
 /* ==========================================================================
-   3. RENDER
+   3. TEMPLATES
    ========================================================================== */
 function checkRow(it){
   return '' +
@@ -1170,44 +1221,49 @@ function widgetAmps(){
       '<label class="field"><span class="field-label">L1 (A)</span><input type="number" id="amp_l1" step="0.01" inputmode="decimal" placeholder="0.00" autocomplete="off"></label>' +
       '<label class="field"><span class="field-label">L2 (A)</span><input type="number" id="amp_l2" step="0.01" inputmode="decimal" placeholder="0.00" autocomplete="off"></label>' +
       '<label class="field"><span class="field-label">L3 (A)</span><input type="number" id="amp_l3" step="0.01" inputmode="decimal" placeholder="0.00" autocomplete="off"></label>' +
-      '<label class="field"><span class="field-label">Placa / nameplate (A)</span><input type="number" id="amp_placa" step="0.01" inputmode="decimal" placeholder="0.00" autocomplete="off"></label>' +
+      '<label class="field"><span class="field-label">Placa (A)</span><input type="number" id="amp_placa" step="0.01" inputmode="decimal" placeholder="0.00" autocomplete="off"></label>' +
     '</div>' +
     '<p class="widget-hint">Alguna línea mayor a la placa = ELEVADO (reportar de inmediato). Desbalance mayor al 10% del promedio = falla probable en motor o alimentación.</p>' +
   '</div>';
 }
 
-function renderChecklist(){
-  const cont = document.getElementById('secciones');
-  const variantes = ['band', 'band--ink', 'band'];
 
-  SECCIONES.forEach(function(sec, idx){
-    const section = document.createElement('section');
-    section.className = variantes[idx % variantes.length];
-    section.id = sec.id;
+/* ==========================================================================
+   4. RENDER DE HOJAS DE CHECK LIST (01–06)
+   ========================================================================== */
+function renderChecklistSteps(){
+  const cont = document.getElementById('checklistSteps');
 
-    let html = '' +
+  SECCIONES.forEach(function(sec){
+    const el = document.createElement('section');
+    el.className = 'step';
+    el.id = 'step-' + sec.id;
+    el.dataset.stepTitle = sec.titulo;
+    el.hidden = true;
+
+    let body = '';
+    sec.items.forEach(function(it){
+      if(it.widget === 'deflexion') body += widgetDeflexion();
+      if(it.widget === 'amps')      body += widgetAmps();
+      body += (it.tipo === 'auto') ? autoRow(it) : checkRow(it);
+    });
+
+    el.innerHTML =
       '<div class="wrap">' +
-        '<div class="sec-head">' +
+        '<div class="step-head">' +
           '<span class="sec-num">' + sec.num + '</span>' +
           '<h2 class="sec-title">' + sec.titulo + '</h2>' +
         '</div>' +
-        '<div class="card card--lg">';
+        '<div class="card card--lg">' + body + '</div>' +
+      '</div>';
 
-    sec.items.forEach(function(it){
-      if(it.widget === 'deflexion') html += widgetDeflexion();
-      if(it.widget === 'amps')      html += widgetAmps();
-      html += (it.tipo === 'auto') ? autoRow(it) : checkRow(it);
-    });
-
-    html += '</div></div>';
-    section.innerHTML = html;
-    cont.appendChild(section);
+    cont.appendChild(el);
   });
 }
 
 
 /* ==========================================================================
-   4. EVALUACIÓN AUTOMÁTICA
+   5. EVALUACIÓN AUTOMÁTICA
    ========================================================================== */
 function evaluar(){
   let ok = 0, nok = 0, pend = 0, crit = 0, total = 0;
@@ -1248,7 +1304,7 @@ function veredicto(e){
 
 
 /* ==========================================================================
-   5. ACTUALIZACIÓN DE UI EN VIVO
+   6. ACTUALIZACIÓN DE UI EN VIVO
    ========================================================================== */
 function actualizar(){
   SECCIONES.forEach(function(sec){
@@ -1269,43 +1325,127 @@ function actualizar(){
   const v = veredicto(e);
   const pct = e.total ? Math.round((e.ok / e.total) * 100) : 0;
 
-  document.getElementById('sum_total').value = e.total;
-  document.getElementById('sum_ok').value = e.ok;
-  document.getElementById('sum_nok').value = e.nok;
-  document.getElementById('sum_pct').value = pct + '%';
+  const setV = (id, val) => { const el = document.getElementById(id); if(el) el.value = val; };
+  setV('sum_total', e.total);
+  setV('sum_ok', e.ok);
+  setV('sum_nok', e.nok);
+  setV('sum_pct', pct + '%');
 
-  document.getElementById('dock-ok').textContent = e.ok;
-  document.getElementById('dock-nok').textContent = e.nok;
-  document.getElementById('dock-pend').textContent = e.pend;
-
-  const dv = document.getElementById('dockVerdict');
-  dv.textContent = v.clave === 'CON OBSERVACIONES' ? 'Con observaciones' : v.clave.charAt(0) + v.clave.slice(1).toLowerCase();
-  dv.dataset.clave = v.clave;
-
-  const nl = document.getElementById('navLive');
-  nl.innerHTML = '<b>' + (e.ok + e.nok) + '</b> / ' + e.total + ' verificados';
+  const setT = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+  setT('navOk', e.ok);
+  setT('navNok', e.nok);
 
   document.querySelectorAll('.verdict-card').forEach(function(card){
     card.classList.toggle('is-active', card.dataset.clave === v.clave);
   });
 
   const h = document.getElementById('verdictHelper');
-  if(v.clave === 'INCOMPLETO'){
-    h.innerHTML = 'Faltan <strong>' + e.pend + '</strong> criterio(s) por verificar: ' +
-      (e.pendLabels.slice(0,4).join(' · ')) + (e.pendLabels.length > 4 ? ' …' : '');
-  } else if(v.clave === 'REPROBADO'){
-    h.innerHTML = '<strong>Intervención inmediata.</strong> ' + e.nok + ' criterio(s) en NOK' +
-      (e.crit > 0 ? ' — incluye ' + e.crit + ' criterio(s) crítico(s).' : '.');
-  } else if(v.clave === 'CON OBSERVACIONES'){
-    h.innerHTML = e.nok + ' criterio(s) en NOK. Programar seguimiento en la próxima visita.';
-  } else {
-    h.innerHTML = 'Todos los criterios verificados en OK. Equipo en condiciones óptimas.';
+  if(h){
+    if(v.clave === 'INCOMPLETO'){
+      h.innerHTML = 'Faltan <strong>' + e.pend + '</strong> criterio(s) por verificar: ' +
+        (e.pendLabels.slice(0,4).join(' · ')) + (e.pendLabels.length > 4 ? ' …' : '');
+    } else if(v.clave === 'REPROBADO'){
+      h.innerHTML = '<strong>Intervención inmediata.</strong> ' + e.nok + ' criterio(s) en NOK' +
+        (e.crit > 0 ? ' — incluye ' + e.crit + ' criterio(s) crítico(s).' : '.');
+    } else if(v.clave === 'CON OBSERVACIONES'){
+      h.innerHTML = e.nok + ' criterio(s) en NOK. Programar seguimiento en la próxima visita.';
+    } else {
+      h.innerHTML = 'Todos los criterios verificados en OK. Equipo en condiciones óptimas.';
+    }
   }
+
+  const ch = document.getElementById('cierreHelper');
+  if(ch){
+    ch.innerHTML = 'Veredicto actual: <strong>' + v.texto + '</strong> · ' +
+      e.ok + ' OK · ' + e.nok + ' NOK · ' + e.pend + ' pendiente(s).';
+  }
+
+  refrescarDots();
 }
 
 
 /* ==========================================================================
-   6. RECOLECCIÓN DE DATOS → OBJETO PLANO DE STRINGS
+   7. NAVEGACIÓN ENTRE HOJAS
+   ========================================================================== */
+let STEPS = [];
+let currentStep = 0;
+
+function buildStepList(){
+  STEPS = Array.prototype.slice.call(document.querySelectorAll('#steps .step'));
+  STEPS.forEach(function(el, i){
+    el.hidden = (i !== 0);
+  });
+  buildDots();
+}
+
+function buildDots(){
+  const cont = document.getElementById('dots');
+  cont.innerHTML = '';
+  STEPS.forEach(function(el, i){
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'dot';
+    b.dataset.index = String(i);
+    b.setAttribute('aria-label', 'Ir a ' + (el.dataset.stepTitle || ('Paso ' + (i+1))));
+    b.addEventListener('click', function(){ goTo(i); });
+    cont.appendChild(b);
+  });
+}
+
+function refrescarDots(){
+  const dots = document.querySelectorAll('#dots .dot');
+  dots.forEach(function(d, i){
+    d.classList.toggle('is-current', i === currentStep);
+    d.classList.toggle('is-done', i < currentStep);
+  });
+}
+
+function goTo(index, opts){
+  if(index < 0 || index >= STEPS.length) return;
+  STEPS.forEach(function(el, i){ el.hidden = (i !== index); });
+  currentStep = index;
+
+  /* Hero solo en la primera hoja */
+  const hero = document.getElementById('hero');
+  if(hero) hero.hidden = (index !== 0);
+
+  /* Etiqueta del dock y del nav */
+  const stepEl = STEPS[index];
+  const titulo = stepEl.dataset.stepTitle || 'Paso ' + (index + 1);
+  const num = index + 1;
+  const total = STEPS.length;
+
+  document.getElementById('dockLabel').innerHTML =
+    '<b>Paso ' + num + '</b> / ' + total + ' · ' + titulo;
+  document.getElementById('navStep').innerHTML =
+    '<b>Paso ' + num + '</b> / ' + total + ' · ' + titulo;
+
+  /* Botones */
+  const prev = document.getElementById('btnPrev');
+  const next = document.getElementById('btnNext');
+  const send = document.getElementById('btnEnviar');
+
+  prev.disabled = (index === 0);
+
+  const isLast = (index === total - 1);
+  next.hidden = isLast;
+  send.hidden = !isLast;
+
+  /* Scroll al inicio de la hoja */
+  if(!opts || opts.scroll !== false){
+    window.scrollTo(0, 0);
+  }
+
+  refrescarDots();
+  actualizar();
+}
+
+function nextStep(){ goTo(currentStep + 1); }
+function prevStep(){ goTo(currentStep - 1); }
+
+
+/* ==========================================================================
+   8. RECOLECCIÓN DE DATOS → OBJETO PLANO DE STRINGS
    ========================================================================== */
 function val(id){
   const el = document.getElementById(id);
@@ -1379,7 +1519,7 @@ function recolectar(){
 
 
 /* ==========================================================================
-   7. ENVÍO AL CUSTOM WEBHOOK DE MAKE.COM
+   9. ENVÍO AL CUSTOM WEBHOOK DE MAKE.COM
    --------------------------------------------------------------------------
    · URLSearchParams  →  body urlencoded (application/x-www-form-urlencoded)
    · keepalive: true  →  la petición sobrevive si el usuario cambia de página
@@ -1419,7 +1559,7 @@ function enviarWebhook(datos){
 
 
 /* ==========================================================================
-   8. TOAST
+   10. TOAST
    ========================================================================== */
 let toastTimer = null;
 function toast(msg){
@@ -1432,7 +1572,7 @@ function toast(msg){
 
 
 /* ==========================================================================
-   9. MARQUEE
+   11. MARQUEE
    ========================================================================== */
 (function marquee(){
   const msg = '  ▚  PROTOCOLO LOTO OBLIGATORIO  ·  SOLO PERSONAL CAPACITADO  ·  INSPECCIÓN VENT SET  ·  DEPARTAMENTO DE PROYECTOS  ·  v1.0 · AGOSTO 2026  ';
@@ -1442,11 +1582,13 @@ function toast(msg){
 
 
 /* ==========================================================================
-   10. ARRANQUE Y EVENTOS
+   12. ARRANQUE Y EVENTOS
    ========================================================================== */
 (function init(){
-  renderChecklist();
+  /* 1. Generar hojas 01–06 del check list */
+  renderChecklistSteps();
 
+  /* 2. Fecha de hoy por defecto */
   const f = document.getElementById('fecha_inspeccion');
   if(f && !f.value){
     const hoy = new Date();
@@ -1454,16 +1596,32 @@ function toast(msg){
     f.value = iso;
   }
 
+  /* 3. Construir lista de hojas y navegación */
+  buildStepList();
+
+  /* 4. Recalcular en cada interacción */
   document.addEventListener('input', actualizar);
   document.addEventListener('change', actualizar);
 
+  /* 5. Navegación */
+  document.getElementById('btnPrev').addEventListener('click', prevStep);
+  document.getElementById('btnNext').addEventListener('click', nextStep);
   document.getElementById('btnEnviar').addEventListener('click', function(){
     const datos = recolectar();
     enviarWebhook(datos);          /* No bloqueante: sin await */
     toast('Enviando inspección…');
   });
 
-  actualizar();
+  /* 6. Atajos de teclado */
+  document.addEventListener('keydown', function(ev){
+    const tag = (ev.target && ev.target.tagName) || '';
+    if(tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+    if(ev.key === 'ArrowRight'){ nextStep(); }
+    if(ev.key === 'ArrowLeft'){ prevStep(); }
+  });
+
+  /* 7. Arrancar en la hoja 0 */
+  goTo(0, { scroll:false });
 })();
 </script>
 </body>
